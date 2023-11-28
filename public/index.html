@@ -12,10 +12,8 @@
   <button onclick="sendMessage()">Send</button>
 
   <script>
-
     async function sendMessage() {
       const userInput = document.getElementById('userInput').value;
-      const chatDiv = document.getElementById('chat');
 
       // Display user message
       appendMessage('You', userInput);
@@ -30,7 +28,7 @@
         const chatbotResponse = response.data.response;
         appendMessage('ChatGPT', chatbotResponse);
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error.message);
         appendMessage('Error', 'An error occurred. Please try again.');
       }
 
