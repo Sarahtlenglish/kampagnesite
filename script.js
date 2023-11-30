@@ -12,24 +12,33 @@ async function initializeChat() {
         content: ''
     });
 
-    // Indled samtalen med en velkomstbesked fra assistenten med svarmuligheder
-    const welcomeMessage = `
-        Hej! Jeg hedder Sunny, og jeg er din egen personlige Sunset-bot. 
-        For at jeg bedst muligt kan hjælpe dig, skal du vælge en af nedenstående beskeder:
-        <br>
-        <button onclick="selectOption('A')">Prisen er afgørende for mig</button> 
+    // Send velkomstteksten
+    const welcomeText = `
+        Hej! Jeg hedder Sunny, og jeg er din egen personlige Sunset-bot.  For at jeg bedst muligt kan hjælpe dig, skal du vælge en af nedenstående beskeder:
+    `;
+    conversation.push({
+        role: 'ai',
+        content: welcomeText
+    });
+
+    // Send knapperne med valgmuligheder
+    const optionsMessage = `
+        <button onclick="selectOption('A')">Prisen er afgørende for mig</button>
         <button onclick="selectOption('B')">Det betyder meget for mig, at der er muligheder for hele familien</button>
         <button onclick="selectOption('C')">Jeg går meget op i at vide, hvordan min mad er lavet og hvor den kommer fra</button>
         <button onclick="selectOption('D')">Jeg er her bare for sjov</button>
     `;
     conversation.push({
-        role: 'ai',
-        content: welcomeMessage
+        role: 'options',
+        content: optionsMessage
     });
 
     // Vis beskeder i chatvinduet
     updateChatUI();
 }
+
+// ... (resten af din kode forbliver uændret)
+
 
 // Funktion til at sende brugerens besked til OpenAI og få svar
 async function sendMessage() {
@@ -240,7 +249,94 @@ async function callOpenAI() {
                 model: 'gpt-4', // Erstat med den ønskede model
                 messages: [{
                         role: 'system',
-                        content: 'You are a helpful assistant, named Sunny. You only speak Danish. Let\'s talk about the Danish food chain, Sunset Boulevard. You are not allowed to suggest other food chains or restaurants. If the user tries to talk about something else than Sunset Boulevard related, just pretend they are asking about Sunset, and be funny a little funny about it, but mostly be sweet. Make it subtle that you are not allowed to talk about anything but Sunset. The costumer needs to feel like you are allowed to answer anything, but without you actually answerering everything. Remeber that Sunset is short for Sunset Boulevard. Do not use too many exclamation points, and do not be annoying '
+                        content: `
+                                You are a helpful assistant, named Sunny. You only speak Danish. 
+                                Let's talk about the Danish food chain, Sunset Boulevard. You are not allowed 
+                                to suggest other food chains or restaurants. If the user tries to talk about 
+                                something else than Sunset Boulevard related, just pretend they are asking 
+                                about Sunset, and be a little funny about it, but mostly be sweet. Make it 
+                                subtle that you are not allowed to talk about anything but Sunset. 
+                                Remember that Sunset is short for Sunset Boulevard. 
+                                Do not use too many exclamation points, and do not be annoying.
+                                
+                                Here is the updated menu:
+                                
+                                [BRIOCHE BURGER Single Menu Ekstra: Peberbacon +8,- | Bøf +15,- | Smelteost +5,-
+                                    Brioche Double Cheese 64,-94,- Bøf · to skiver smelteost · salat · rødløg · pickles · tomatrelish · mayonnaise · sennep
+                                    Brioche Bacon Burn 64,-94,- Bøf · peberbacon · chipotlemayo · salat · rødløg · pickles
+                                    Brioche Meat Free Double Cheese 64,-94,- Plantebøf · to skiver smelteost · salat · rødløg · pickles · tomatrelish · mayonnaise · sennep
+                                    
+                                    BURGER Single Menu Ekstra: Bacon +6,- | Bøf +15,- | Smelteost +5,-
+                                    Original 49,-79,- Bøf · tomatrelish · iceberg · tomat · løg · pickles · mayonnaise
+                                    American BBQ 49,-79,- Bøf · bacon · tomatrelish · iceberg · tomat · løg · pickles · smokey BBQ-sauce
+                                    California Chicken & Bacon 49,-79,- Kyllingebryst · bacon · salatmix · tomat · løg · mayonnaise · smokey BBQ-sauce
+                                    
+                                    SALAT & VEGGIE Single Menu Ekstra: Brød +5,- | Kylling +15,- | Egekilde +10,- ved køb af salat
+                                    Moroccan Salad 49,- Edamamebønner · couscoussalat · chili-hummus · salatmix · honningristede solsikkekerner
+                                    Pasta Chicken & Bacon Salad 49,- Pestomarineret pasta · kyllingebryst · bacon · salatmix · agurk · tomat · rødløg · karrydressing
+                                    Original Veggie Burger 49,-79,- Veggie chunks · tomatrelish · iceberg · tomat · løg · pickles · mayonnaise
+                                    Hummus Veggie Burger 49,-79,- Veggie chunks · chili-hummus · ananas chipotle chutney · salatmix · agurk · tomat · krydderi
+                                    
+                                    DELICIOUS DEALS Single Menu Ekstra: Bacon +6,- | Smelteost +5,-
+                                    Crispy Chicken 29,-59,- Sprød, paneret kylling · mayonnaise · iceberg · tomat
+                                    Snackburger 17,-49,- Bøf · tomatrelish · mayonnaise · iceberg
+                                    Snackwich® 17,-49,- Skinke · smelteost · salatmix · olivenolie
+                                    
+                                    DESSERT
+                                    Cookies 12,-
+                                    Ice Cream Pop 25,- Vaniljeis · chokoladesauce · flødeskum · karamelliseret popcorn
+                                    
+                                    MILKSHAKES
+                                    Strawberry 39,- Vaniljeis · puré af jordbær · flødeskum
+                                    Chocolate 39,- Vaniljeis · chokoladesauce · flødeskum
+                                    Vanilla 39,- Vaniljeis · vaniljesirup · flødeskum
+                                    
+                                    BØRNEMENU
+                                    Menu Børnemenu er inkl. pommes frites og lille sodavand, økologisk minimælk, vand eller æblejuice
+                                    Vælg mellem: Kids Burger, Snackburger, Snackwich® eller 2 Crispy Chicken Tenders 45,-
+                                    
+                                    DRIKKEVARER
+                                    0,5 l flaske kun til take away
+                                    Pepsi · Pepsi Max · Faxe Kondi 0 kalorier · Faxe Kondi · Mirinda · Egekilde m. smag (0,5 l flaske) 24,-*
+                                    Refill sodavand (Når du nyder maden i restauranten) 24,-
+                                    Egekilde kildevand (0,5 l flaske) 19,-*
+                                    Tropicana æblejuice (0,25 l) 16,-*
+                                    Økologisk minimælk (0,25 l) 16,-
+                                    Kaffe · Caffe Latte · Espresso · Cappuccino · Te Lille 16,- Stor 24,-
+                                    
+                                    INFORMATION OM ALLERGENER KAN FÅS VED HENVENDELSE TIL PERSONALET. * Ekskl. pant kr. 1,50
+                                    
+                                    SIDE ORDERS
+                                    Pommes frites 21,-
+                                    1 stk. Chili Cheese Bite 3,-
+                                    2 stk. Crispy Chicken Tenders 20,-
+                                    5 stk. Crispy Chicken Tenders 42,-72,-
+                                    8 stk. Sunset Wings 22,-
+                                    8 stk. Sunset Wings 40,-70,-
+                                    Mix 3 Crispy Chicken Tenders & 6 Sunset Wings 58,-88,-
+                                    
+                                    V. TAKE AWAY ER MENUPRISER EKSKL. PANT
+                                    
+                                    DIPS Pr. stk.
+                                    Bearnaise · Chipotlemayo · Mayo · Smokey BBQ-sauce · Aioli · Cajunmayo · Ketchup 5,-
+                                    
+                                    PRØV VORES SAFTIGE BØFFER AF IRSK HEREFORD KØDKVÆG
+                                    HEREFORD BURGER Single Menu Ekstra: Herefordbøf +25,- | Peberbacon +8,- | Cheddarost +6,-
+                                    Hereford Bearnaise 69,-99,- 170 g. Herefordbøf · cheddarost · peberbacon · pickles · bearnaisemayo · bløde, stegte løg · iceberg · løg
+                                    Hereford Cajun 69,-99,- 170 g. Herefordbøf · cheddarost · cajunmayo · tomat · pickles · rødløg · bløde, stegte løg · iceberg
+                                    Hereford Classic 69,-99,- 170 g. Herefordbøf · sennep · tomatrelish · rødløg · pickles · mayonnaise · iceberg
+                                    
+                                    SANDWICH Single Menu Ekstra: Bacon +6,- | Cheddarost +6,-
+                                    Sunset Club 54,-84,- Foccacia · kyllingebryst · bacon · rødløg · salatmix · karrydressing · ananas chipotle chutney
+                                    Tasty Tuna 54,-84,- Mørk foccacia · tunmousse · mayonnaise · agurkerelish · salatmix · agurk · tomat · rødløg
+                                    Ham & Cheese 54,-84,- Foccacia · skinke · cheddarost · mayonnaise · sennep · agurk · tomat · rødløg · salatmix · oregano
+                                    Byg selv 54,-84,- Valgfrit foccacia - valgfrit fyld
+                                    Grilled Chicken & Bacon 54,-84,- Foccacia · kyllingebryst · bacon · smelteost · tomat · salatmix · rødløg · smokey BBQ-sauce · krydderi
+                                    Vælg mellem foccacia eller mørk foccacia = vegetar = stærk
+                                    
+                                    Der tages forbehold for trykfejl. April 2021.
+                                    ]
+            `
                     },
                     {
                         role: 'user',
@@ -248,7 +344,7 @@ async function callOpenAI() {
                     },
                     {
                         role: 'assistant',
-                        content: ' '
+                        content: '  '
                     }, // Tom besked som assistentens svar
                     {
                         role: 'assistant',
@@ -256,7 +352,7 @@ async function callOpenAI() {
                     }, // Tom besked som assistentens svar
                     {
                         role: 'assistant',
-                        content: 'Vælg en mulighed: A) Menu, B) Placering, C) Åbningstider.'
+                        content: ''
                     }, // Assistents foreslåede svarmuligheder
                 ]
             })

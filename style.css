@@ -29,3 +29,27 @@ button {
     margin-left: 10px;
     padding: 5px 25px;
 }
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ai {
+    align-self: flex-start;
+    background-color: #f0f0f0;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 8px;
+    max-width: 30vh;
+}
+
+.user {
+    align-self: flex-end;
+    background-color: #c8e6c9;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 8px;
+    max-width: 30vh;
+}
+
