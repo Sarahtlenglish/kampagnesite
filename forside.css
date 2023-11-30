@@ -48,8 +48,6 @@ body {
   flex-direction: column;
   text-align: center;
   align-items: center;
-
-
 }
   
 h1{
@@ -77,4 +75,9 @@ p{
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+img {
+  width: 100%;
+  height: auto;
 }
