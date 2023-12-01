@@ -433,12 +433,6 @@ async function selectOption(option) {
     userInput.value = '';
 }
 
-
-
-
-
-
-
 // Funktion til at hente teksten for en given valgmulighed
 function getOptionText(option) {
     switch (option) {
@@ -472,6 +466,14 @@ function getOptionText(option) {
     }
 }
 
-
 // Initialiser chat ved siden af svarmulighederne
 initializeChat();
+
+// Send besked med 'Enter'-knap
+userInput.addEventListener('keyup', function (event) {
+    // Tjek om tasten, der blev trykket, er Enter
+    if (event.key === 'Enter') {
+        // Kald sendMessage-funktionen, når Enter-tasten trykkes
+        sendMessage();
+    }
+});
