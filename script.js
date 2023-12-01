@@ -395,7 +395,7 @@ async function selectOption(option) {
         // Generer nye svarmuligheder
         const followUpOptions = getFollowUpOptions(option);
         conversation.push({
-            role: 'ai',
+            role: 'options',
             content: followUpOptions
         });
     } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
