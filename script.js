@@ -184,10 +184,7 @@ async function handleFollowUpOptions(option) {
             aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
             break;
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
-=======
->>>>>>> parent of 7ed58ba (riddle)
         case 'L':
             aiResponses.push('Det er desværre forkert, men godt forsøgt!');
             break;
@@ -300,11 +297,8 @@ async function callOpenAI() {
                                 Do not use too many exclamation points, and do not be annoying.
                                 
 <<<<<<< HEAD
-<<<<<<< HEAD
                                 If the user send you a message with: "jeg er her bare for sjov" responde with on of these messages this specific message: "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?" 
                               
-=======
->>>>>>> parent of 7ed58ba (riddle)
 =======
 >>>>>>> parent of 7ed58ba (riddle)
                                 Here is the updated menu:
