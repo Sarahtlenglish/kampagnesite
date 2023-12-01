@@ -72,6 +72,8 @@ async function sendMessage() {
             role: 'ai',
             content: aiResponse
         });
+
+        
     }
 
     // Vis beskeder i chatvinduet
