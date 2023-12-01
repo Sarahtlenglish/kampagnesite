@@ -27,22 +27,25 @@ header {
 
 .button {
   background-color: #F4D813;
-  color: #0A0B0C;
-  padding-left: 12px;
-  border: none;
+  
   border-radius: 30px;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 11px;
-  font-family: Domine;
   display: flex;
   align-items: center;
+  border: none;
   width: 93px;
   height: 25px;
 
 }
 
-
+.button p {
+  background-color: transparent;
+  color: #0A0B0C;
+  padding-left: 6px;
+  font-weight: bold;
+  font-size: 11px;
+  font-family: Domine; 
+}
 .button img {
   max-width: 20px;
   max-height: 20px;
@@ -117,8 +120,13 @@ p {
     position: relative;
   }
 
+  .button.button {
+    margin-right: 500px;
+  }
+
   .button p {
-    margin-left: 40px;
+    font-size: 20px;
+    margin-left: 35px;
   }
 
   .button img {
@@ -126,5 +134,10 @@ p {
     max-height: 50px;
     position: absolute;
     right: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand til højre for billedet */
+  }
+  .logo img {
+    width: 81px;
+    height: 81px;
+    margin-left: 320px;
   }
 }
