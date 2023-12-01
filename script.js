@@ -14,7 +14,7 @@ async function initializeChat() {
 
     // Send velkomstteksten
     const welcomeText = `
-        Hej! Jeg hedder Sunny, og jeg er din egen personlige Sunset-bot.  For at jeg bedst muligt kan hjælpe dig, skal du vælge en af nedenstående beskeder:
+        Hej! Jeg hedder Sunny, og jeg er din egen personlige Sunset-bot. For at jeg bedst muligt kan hjælpe dig, skal du vælge en af nedenstående beskeder:
     `;
     conversation.push({
         role: 'ai',
@@ -97,12 +97,6 @@ async function generatePredefinedResponse(option) {
         case 'C':
             aiResponse = 'Det er også vigtigt for os!<br> Vidste du godt, at mange af Sunsets restaurant producerer deres egne urter I restauranten?   ';
             break;
-        case 'D':
-            aiResponse = 'Fedt, her er en lille gåde!<br> Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?';
-            break;
-        default:
-            aiResponse = 'Beklager, jeg forstår ikke valget.';
-            break;
     }
 
     return aiResponse;
@@ -134,13 +128,6 @@ function getFollowUpOptions(option) {
                 <button onclick="selectOption('K')">Ikke interesseret</button>
             `;
             break;
-        case 'D':
-            followUpOptions = `
-                <br>
-                <button onclick="selectOption('L')">Fortæl mig mere</button>
-                <button onclick="selectOption('M')">Ikke interesseret</button>
-            `;
-            break;
         // Tilføj yderligere cases efter behov
         default:
             // Returner en tom streng, når der ikke er definerede opfølgningsmuligheder
@@ -150,54 +137,72 @@ function getFollowUpOptions(option) {
     return followUpOptions;
 }
 
-
 // Funktion til at håndtere følgesvarmuligheder baseret på brugerens valg
 async function handleFollowUpOptions(option) {
-    let aiResponse = '';
+    let aiResponses = [];
 
     switch (option) {
         case 'F':
-            aiResponse = 'Prisen er ikke den eneste fordel hos os. Vores bøffer består nemlig af 99% kød - resten er salt og peber!';
+            aiResponses.push('Prisen er ikke den eneste fordel hos os. Vores bøffer består nemlig af 99% kød - resten er salt og peber!');
             break;
         case 'G':
-            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
+            aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
             break;
         case 'H':
-            aiResponse = 'Vidste du, at dit barn er med til at plante et træ, når I bestiller en børnemenu?';
+            aiResponses.push('Vidste du, at dit barn er med til at plante et træ, når I bestiller en børnemenu?');
             break;
         case 'I':
-            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
+            aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
             break;
-         case 'J':
-            aiResponse = 'Vidste du, at køerne hygger sig på markerne i minimum 10 måneder om året? Og gerne mere, hvis vejret tillader det.';
+        case 'J':
+            aiResponses.push('Vidste du, at køerne hygger sig på markerne i minimum 10 måneder om året? Og gerne mere, hvis vejret tillader det.');
             break;
         case 'K':
-            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
+            aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
             break;
-        case 'L':
-            aiResponse = 'Det er desværre forkert, men godt forsøgt!';
-            break;
-        case 'M':
-            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
-            break;
-            
         // Tilføj yderligere cases efter behov
         default:
-            aiResponse = 'Beklager, jeg forstår ikke valget.';
+            aiResponses.push('Beklager, jeg forstår ikke valget.');
             break;
     }
 
-      // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-      if (aiResponse.trim() !== '') {
-        // Tilføj assistentens svar
+    // Tilføj assistentens svar kun, hvis der er gyldige AI-responser
+    aiResponses.forEach(response => {
+        if (response.trim() !== '') {
+            conversation.push({
+                role: 'ai',
+                content: response
+            });
+        }
+    });
+
+    // Hvis option er 'G' eller 'I', tilføj en ekstra besked med rabatkoden
+    if (['F', 'H', 'J'].includes(option)) {
         conversation.push({
             role: 'ai',
-            content: aiResponse
+            content: 'Her er en lille gave - fra os til dig'
+        });
+        conversation.push({
+            role: 'ai',
+            content: 'Rabatkode: XYZ123'
+        });
+        
+    } else if (['G', 'I', 'K'].includes(option)) {
+        conversation.push({
+            role: 'ai',
+            content: 'Du får dog lige en lille gave af mig alligevel.'
+        });
+        conversation.push({
+            role: 'ai',
+            content: 'Rabatkode: XYZ123'
         });
     }
 
     // Vis beskeder i chatvinduet
     updateChatUI();
+
+    // Returner AI-responserne for eventuel yderligere brug
+    return aiResponses;
 }
 
 // Funktion til at opdatere chatgrænsefladen baseret på samtalen
@@ -257,8 +262,10 @@ async function callOpenAI() {
                                 about Sunset, and be a little funny about it, but mostly be sweet. Make it 
                                 subtle that you are not allowed to talk about anything but Sunset. 
                                 Remember that Sunset is short for Sunset Boulevard. 
-                                Do not use too many exclamation points, and do not be annoying.
+                                Do not use too many exclamation points, and do not be annoying. 
                                 
+                                If the user send you a message with: "jeg er her bare for sjov" responde with this specific message: "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?" and then if the user responds with: "istap" then respond with: "Det er korrekt!". Her er en lille gave - fra os til dig: <br> Rabatkode: XYZ123". 
+                              
                                 Here is the updated menu:
                                 
                                 [BRIOCHE BURGER Single Menu Ekstra: Peberbacon +8,- | Bøf +15,- | Smelteost +5,-
@@ -372,7 +379,7 @@ async function callOpenAI() {
 }
 async function selectOption(option) {
     // Hvis det er en valgmulighed, gem brugerens valg og tilføj til samtalen
-    if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
+    if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'].includes(option)) {
         const userChoiceMessage = `${getOptionText(option)}`;
         conversation.push({
             role: 'user',
@@ -380,13 +387,14 @@ async function selectOption(option) {
         });
 
         // Fjern svarmulighederne (a, b, c, d, e, f, g, h, i, j, k, l, m) efter brugerens valg
-        if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
+        if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'].includes(option)) {
             conversation = conversation.filter(message => message.role !== 'options');
         }
 
         // Håndter valgmuligheden her, f.eks. ved at sende en besked til assistenten
         let aiResponse = '';
-        if (['A', 'B', 'C', 'D', 'E'].includes(option)) {
+
+        if (['A', 'B', 'C', 'E', 'F', 'H', 'J'].includes(option)) {
             aiResponse = await generatePredefinedResponse(option);
 
             // Tilføj assistentens svar til samtalen
@@ -403,9 +411,15 @@ async function selectOption(option) {
                     content: followUpOptions
                 });
             }
-        } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
-            // Håndter følgesvarmuligheder baseret på brugerens valg
-            aiResponse = await handleFollowUpOptions(option);
+        } else if (['D', 'G', 'I', 'K'].includes(option)) {
+            // Håndter 'D' samt følgesvarmuligheder baseret på brugerens valg
+            if (option === 'D') {
+                // Behandl 'D' som brugerinput og send det til OpenAI for at få et ægte svar
+                aiResponse = await callOpenAI();
+            } else {
+                // Håndter følgesvarmuligheder baseret på brugerens valg
+                aiResponse = await handleFollowUpOptions(option);
+            }
 
             // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
             if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
@@ -435,6 +449,7 @@ async function selectOption(option) {
     userInput.value = '';
 }
 
+
 // Funktion til at hente teksten for en given valgmulighed
 function getOptionText(option) {
     switch (option) {
@@ -458,13 +473,7 @@ function getOptionText(option) {
             return 'Fortæl mig mere';
         case 'K':
             return 'Ikke interesseret';     
-        case 'L':
-            return 'Fortæl mig mere';
-        case 'M':
-            return 'Ikke interesseret';  
-            
-        default:
-            return 'Ukendt valg';
+      
     }
 }
 
