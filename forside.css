@@ -1,49 +1,54 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #191B1F;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #191B1F;
-    border-bottom: 3px solid #ffd700;
-  }
-  
-  .logo img {
-    width: 49px;
-    height: 49px;
-  }
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #191B1F;
+}
 
-  
-  .button {
-    background-color: #F4D813;
-    color: #0A0B0C;
-    padding-left: 14px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: bold;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    width: 93px;
-    height: 25px;
-   
+@font-face {
+  font-family: Domine;
+  src: url(https://fonts.google.com/specimen/Domine);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #191B1F;
+  border-bottom: 3px solid #ffd700;
+  position: relative;
+  z-index: 2; /* Sæt en z-index for at placere header foran baggrunden */
+}
+
+.logo img {
+  width: 49px;
+  height: 49px;
+}
+
+.button {
+  background-color: #F4D813;
+  color: #0A0B0C;
+  padding-left: 14px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 10px;
+  font-family: Domine;
+  display: flex;
+  align-items: center;
+  width: 93px;
+  height: 25px;
+
 }
 
 .button img {
-    max-width: 20px; /* Juster denne værdi for at ændre billedets maksimale bredde */
-    max-height: 20px; /* Juster denne værdi for at ændre billedets maksimale højde */
-    margin-left: 3px; /* Juster denne værdi efter behov for at ændre afstanden mellem teksten og billedet */
-  }
+  max-width: 20px;
+  max-height: 20px;
+  margin-left: 3px;
+}
 
-.container{
+.container {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -51,34 +56,52 @@ body {
   align-items: center;
   width: 100%;
   height: auto;
+  position: relative;
+  margin-top: 35px;
+  z-index: 1; /* Sæt en z-index for at placere container foran baggrunden */
 }
-  
-h1{
+
+h1 {
   font-size: 25px;
   color: white;
   padding-top: 10px;
+  font-family: Domine;
 }
 
-p{
+p {
   font-size: 12px;
+  font-family: Domine;
   color: white;
-  background-color: #707070;
+  background-color: #24282C;
   border: 5px, 0px, 5px, 0px;
   padding: 10px;
 }
 
-#gultekst{
+#gultekst {
   color: #F4D813;
 }
 
-.button2{
+.button2 {
   background-color: #F4D813;
   color: #000000;
   font-size: 15px;
+  font-family: Domine;
   width: 228px;
   height: 48px;
   padding: 10px 20px;
   border: none;
+  margin: 30px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  margin-top: 45px;
+  z-index: 0; /* Sæt en z-index for at placere baggrunden bag alt andet indhold */
 }
