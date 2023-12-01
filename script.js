@@ -37,8 +37,6 @@ async function initializeChat() {
     updateChatUI();
 }
 
-// ... (resten af din kode forbliver uændret)
-
 
 // Funktion til at sende brugerens besked til OpenAI og få svar
 async function sendMessage() {
@@ -370,20 +368,24 @@ async function callOpenAI() {
         // Håndter fejlen her, f.eks. vis en fejlbesked til brugeren
     }
 }
-// Funktion til at håndtere brugerens valgmuligheder
 async function selectOption(option) {
     // Hvis det er en valgmulighed, gem brugerens valg og tilføj til samtalen
-    if (['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
+    if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
         const userChoiceMessage = `${getOptionText(option)}`;
         conversation.push({
             role: 'user',
             content: userChoiceMessage
         });
+
+        // Fjern svarmulighederne (a, b, c, d, e, f, g, h, i, j, k, l, m) efter brugerens valg
+        if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
+            conversation = conversation.filter(message => message.role !== 'options');
+        }
     }
 
     // Håndter valgmuligheden her, f.eks. ved at sende en besked til assistenten
     let aiResponse = '';
-    if (option === 'A' || option === 'B' || option === 'C' || option === 'D') {
+    if (['A', 'B', 'C', 'D', 'E'].includes(option)) {
         aiResponse = await generatePredefinedResponse(option);
 
         // Tilføj assistentens svar til samtalen
@@ -403,12 +405,22 @@ async function selectOption(option) {
         aiResponse = await handleFollowUpOptions(option);
 
         // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-        if (aiResponse && aiResponse.trim() !== '') {
-         // Tilføj assistentens svar
-        conversation.push({
-        role: 'ai',
-        content: aiResponse
-    });
+        if (aiResponse.trim() !== '') {
+            conversation.push({
+                role: 'ai',
+                content: aiResponse
+            });
+        }
+    } else {
+        // Hvis brugeren skriver selv, send beskeden til OpenAI og fortsæt samtalen
+        aiResponse = await callOpenAI();
+
+        // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
+        if (aiResponse.trim() !== '') {
+            conversation.push({
+                role: 'ai',
+                content: aiResponse
+            });
         }
     }
 
@@ -418,6 +430,8 @@ async function selectOption(option) {
     // Ryd brugerens inputfelt
     userInput.value = '';
 }
+
+
 
 
 
