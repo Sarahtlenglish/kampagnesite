@@ -107,6 +107,12 @@ async function generatePredefinedResponse(option) {
         case 'C':
             aiResponse = 'Det er også vigtigt for os!<br> Vidste du godt, at mange af Sunsets restaurant producerer deres egne urter I restauranten?   ';
             break;
+        case 'D':
+            aiResponse = 'Fedt, her er en lille gåde!<br> Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?';
+            break;
+        default:
+            aiResponse = 'Beklager, jeg forstår ikke valget.';
+            break;
     }
 
     return aiResponse;
@@ -136,6 +142,13 @@ function getFollowUpOptions(option) {
                 <br>
                 <button onclick="selectOption('J')">Fortæl mig mere</button>
                 <button onclick="selectOption('K')">Ikke interesseret</button>
+            `;
+            break;
+        case 'D':
+            followUpOptions = `
+                <br>
+                <button onclick="selectOption('L')">Fortæl mig mere</button>
+                <button onclick="selectOption('M')">Ikke interesseret</button>
             `;
             break;
         // Tilføj yderligere cases efter behov
@@ -170,6 +183,19 @@ async function handleFollowUpOptions(option) {
         case 'K':
             aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
             break;
+<<<<<<< HEAD
+=======
+        case 'L':
+            aiResponses.push('Det er desværre forkert, men godt forsøgt!');
+            break;
+        case 'M':
+            aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
+            break;
+        // Tilføj yderligere cases efter behov
+        default:
+            aiResponses.push('Beklager, jeg forstår ikke valget.');
+            break;
+>>>>>>> parent of 7ed58ba (riddle)
     }
 
     // Tilføj assistentens svar kun, hvis der er gyldige AI-responser
@@ -183,7 +209,7 @@ async function handleFollowUpOptions(option) {
     });
 
     // Hvis option er 'G' eller 'I', tilføj en ekstra besked med rabatkoden
-    if (['F', 'H', 'J'].includes(option)) {
+    if (['F', 'H', 'J','L'].includes(option)) {
         conversation.push({
             role: 'ai',
             content: 'Her er en lille gave - fra os til dig'
@@ -193,7 +219,7 @@ async function handleFollowUpOptions(option) {
             content: 'Rabatkode: XYZ123'
         });
         
-    } else if (['G', 'I', 'K'].includes(option)) {
+    } else if (['G', 'I', 'K', 'M'].includes(option)) {
         conversation.push({
             role: 'ai',
             content: 'Du får dog lige en lille gave af mig alligevel.'
@@ -268,10 +294,13 @@ async function callOpenAI() {
                                 about Sunset, and be a little funny about it, but mostly be sweet. Make it 
                                 subtle that you are not allowed to talk about anything but Sunset. 
                                 Remember that Sunset is short for Sunset Boulevard. 
-                                Do not use too many exclamation points, and do not be annoying. 
+                                Do not use too many exclamation points, and do not be annoying.
                                 
+<<<<<<< HEAD
                                 If the user send you a message with: "jeg er her bare for sjov" responde with on of these messages this specific message: "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?" 
                               
+=======
+>>>>>>> parent of 7ed58ba (riddle)
                                 Here is the updated menu:
                                 
                                 [BRIOCHE BURGER Single Menu Ekstra: Peberbacon +8,- | Bøf +15,- | Smelteost +5,-
@@ -385,7 +414,7 @@ async function callOpenAI() {
 }
 async function selectOption(option) {
     // Hvis det er en valgmulighed, gem brugerens valg og tilføj til samtalen
-    if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'].includes(option)) {
+    if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
         const userChoiceMessage = `${getOptionText(option)}`;
         conversation.push({
             role: 'user',
@@ -393,14 +422,13 @@ async function selectOption(option) {
         });
 
         // Fjern svarmulighederne (a, b, c, d, e, f, g, h, i, j, k, l, m) efter brugerens valg
-        if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'].includes(option)) {
+        if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
             conversation = conversation.filter(message => message.role !== 'options');
         }
 
         // Håndter valgmuligheden her, f.eks. ved at sende en besked til assistenten
         let aiResponse = '';
-
-        if (['A', 'B', 'C', 'E', 'F', 'H', 'J'].includes(option)) {
+        if (['A', 'B', 'C', 'D', 'E'].includes(option)) {
             aiResponse = await generatePredefinedResponse(option);
 
             // Tilføj assistentens svar til samtalen
@@ -417,15 +445,9 @@ async function selectOption(option) {
                     content: followUpOptions
                 });
             }
-        } else if (['D', 'G', 'I', 'K'].includes(option)) {
-            // Håndter 'D' samt følgesvarmuligheder baseret på brugerens valg
-            if (option === 'D') {
-                // Behandl 'D' som brugerinput og send det til OpenAI for at få et ægte svar
-                aiResponse = await callOpenAI();
-            } else {
-                // Håndter følgesvarmuligheder baseret på brugerens valg
-                aiResponse = await handleFollowUpOptions(option);
-            }
+        } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
+            // Håndter følgesvarmuligheder baseret på brugerens valg
+            aiResponse = await handleFollowUpOptions(option);
 
             // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
             if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
@@ -455,7 +477,6 @@ async function selectOption(option) {
     userInput.value = '';
 }
 
-
 // Funktion til at hente teksten for en given valgmulighed
 function getOptionText(option) {
     switch (option) {
@@ -479,7 +500,13 @@ function getOptionText(option) {
             return 'Fortæl mig mere';
         case 'K':
             return 'Ikke interesseret';     
-      
+        case 'L':
+            return 'Fortæl mig mere';
+        case 'M':
+            return 'Ikke interesseret';  
+            
+        default:
+            return 'Ukendt valg';
     }
 }
 
