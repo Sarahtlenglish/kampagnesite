@@ -442,15 +442,18 @@ async function selectOption(option) {
                     content: followUpOptions
                 });
             }
-       } else if (['D', 'G', 'I', 'K'].includes(option)) {
-            // Håndter 'D' samt følgesvarmuligheder baseret på brugerens valg
-            if (option === 'D') {
-                // Behandl 'D' som brugerinput og send det til OpenAI for at få et ægte svar
-                aiResponse = await callOpenAI();
-            } else {
-                // Håndter følgesvarmuligheder baseret på brugerens valg
-                aiResponse = await handleFollowUpOptions(option);
+        } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
+            // Håndter følgesvarmuligheder baseret på brugerens valg
+            aiResponse = await handleFollowUpOptions(option);
+
+            // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
+            if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
+                conversation.push({
+                    role: 'ai',
+                    content: aiResponse
+                });
             }
+        }
     } else {
         // Hvis brugeren skriver selv, send beskeden til OpenAI og fortsæt samtalen
         aiResponse = await callOpenAI();
