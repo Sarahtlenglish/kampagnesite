@@ -37,7 +37,6 @@ async function initializeChat() {
     updateChatUI();
 }
 
-
 // Funktion til at sende brugerens besked til OpenAI og få svar
 async function sendMessage() {
     const userMessage = userInput.value;
@@ -68,12 +67,22 @@ async function sendMessage() {
     } else {
         // Hvis brugeren skriver selv, send beskeden til OpenAI og fortsæt samtalen
         const aiResponse = await callOpenAI();
-        conversation.push({
-            role: 'ai',
-            content: aiResponse
-        });
 
-        
+        // Tjek om brugerens svar er korrekt på gåden
+        if (userMessage.toLowerCase() === 'istap') {
+            const correctAnswerResponse = "Det er korrekt! Her er en lille gave - fra os til dig: <br> Rabatkode: XYZ123";
+            conversation.push({
+                role: 'ai',
+                content: correctAnswerResponse
+            });
+        } else {
+            // Hvis svaret ikke er korrekt, generer en passende reaktion
+            const incorrectAnswerResponse = "Desværre, det er ikke rigtigt. Lad os prøve igen! Hvad er svaret på gåden?";
+            conversation.push({
+                role: 'ai',
+                content: incorrectAnswerResponse
+            });
+        }
     }
 
     // Vis beskeder i chatvinduet
@@ -82,6 +91,7 @@ async function sendMessage() {
     // Ryd brugerens inputfelt
     userInput.value = '';
 }
+
 
 // Funktion til at generere forudbestemt svar baseret på brugerens valgmulighed
 async function generatePredefinedResponse(option) {
@@ -183,6 +193,7 @@ async function handleFollowUpOptions(option) {
         default:
             aiResponses.push('Beklager, jeg forstår ikke valget.');
             break;
+
     }
 
     // Tilføj assistentens svar kun, hvis der er gyldige AI-responser
@@ -283,6 +294,10 @@ async function callOpenAI() {
                                 Remember that Sunset is short for Sunset Boulevard. 
                                 Do not use too many exclamation points, and do not be annoying.
                                 
+
+                                If the user send you a message with: "jeg er her bare for sjov" responde with on of these messages this specific message: "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?" 
+                              
+
                                 Here is the updated menu:
                                 
                                 [BRIOCHE BURGER Single Menu Ekstra: Peberbacon +8,- | Bøf +15,- | Smelteost +5,-
@@ -427,18 +442,15 @@ async function selectOption(option) {
                     content: followUpOptions
                 });
             }
-        } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
-            // Håndter følgesvarmuligheder baseret på brugerens valg
-            aiResponse = await handleFollowUpOptions(option);
-
-            // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-            if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
-                conversation.push({
-                    role: 'ai',
-                    content: aiResponse
-                });
+       } else if (['D', 'G', 'I', 'K'].includes(option)) {
+            // Håndter 'D' samt følgesvarmuligheder baseret på brugerens valg
+            if (option === 'D') {
+                // Behandl 'D' som brugerinput og send det til OpenAI for at få et ægte svar
+                aiResponse = await callOpenAI();
+            } else {
+                // Håndter følgesvarmuligheder baseret på brugerens valg
+                aiResponse = await handleFollowUpOptions(option);
             }
-        }
     } else {
         // Hvis brugeren skriver selv, send beskeden til OpenAI og fortsæt samtalen
         aiResponse = await callOpenAI();
