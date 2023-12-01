@@ -72,6 +72,8 @@ async function sendMessage() {
             role: 'ai',
             content: aiResponse
         });
+
+        
     }
 
     // Vis beskeder i chatvinduet
@@ -87,16 +89,16 @@ async function generatePredefinedResponse(option) {
 
     switch (option) {
         case 'A':
-            aiResponse = 'pris pris pris';
+            aiResponse = 'Det forstår jeg godt!<br> Vidste du godt, at Sunset, trods hvad mange tror, er på samme prisleje som andre Fast Food-kæder?';
             break;
         case 'B':
-            aiResponse = 'familie, familie, familie';
+            aiResponse = 'Det forstår jeg godt!<br> Vidste du, at der er brætspil til hele familien i flere af vores restauranter?';
             break;
         case 'C':
-            aiResponse = 'Miljø, miljø, miljø';
+            aiResponse = 'Det er også vigtigt for os!<br> Vidste du godt, at mange af Sunsets restaurant producerer deres egne urter I restauranten?   ';
             break;
         case 'D':
-            aiResponse = 'sjov, sjov, sjov';
+            aiResponse = 'Fedt, her er en lille gåde!<br> Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?';
             break;
         default:
             aiResponse = 'Beklager, jeg forstår ikke valget.';
@@ -155,28 +157,28 @@ async function handleFollowUpOptions(option) {
 
     switch (option) {
         case 'F':
-            aiResponse = 'Helt fair! her er en rabatkode';
+            aiResponse = 'Prisen er ikke den eneste fordel hos os. Vores bøffer består nemlig af 99% kød - resten er salt og peber!';
             break;
         case 'G':
-            aiResponse = 'Helt fair! her er en rabatkode';
+            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
             break;
         case 'H':
-            aiResponse = 'Helt fair! her er en rabatkode';
+            aiResponse = 'Vidste du, at dit barn er med til at plante et træ, når I bestiller en børnemenu?';
             break;
         case 'I':
-            aiResponse = 'Helt fair! her er en rabatkode';
+            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
             break;
          case 'J':
-            aiResponse = 'Helt fair! her er en rabatkode';
+            aiResponse = 'Vidste du, at køerne hygger sig på markerne i minimum 10 måneder om året? Og gerne mere, hvis vejret tillader det.';
             break;
         case 'K':
-            aiResponse = 'Helt fair! her er en rabatkode';
+            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
             break;
         case 'L':
-            aiResponse = 'Helt fair! her er en rabatkode';
+            aiResponse = 'Det er desværre forkert, men godt forsøgt!';
             break;
         case 'M':
-            aiResponse = 'Helt fair! her er en rabatkode';
+            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
             break;
             
         // Tilføj yderligere cases efter behov
