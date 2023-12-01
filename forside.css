@@ -28,18 +28,22 @@ header {
 .button {
   background-color: #F4D813;
   color: #0A0B0C;
-  padding-left: 14px;
+  padding-left: 12px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 11px;
   font-family: Domine;
   display: flex;
   align-items: center;
   width: 93px;
   height: 25px;
 
+}
+
+.button p {
+  
 }
 
 .button img {
@@ -104,4 +108,25 @@ p {
   background-size: cover;
   margin-top: 45px;
   z-index: 0; /* Sæt en z-index for at placere baggrunden bag alt andet indhold */
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    border-radius: 30px;
+    font-size: 19px;
+    width: 230px;
+    height: 51px;
+    position: relative;
+  }
+
+  .button p {
+    margin-left: 40px;
+  }
+
+  .button img {
+    max-width: 50px;
+    max-height: 50px;
+    position: absolute;
+    right: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand til højre for billedet */
+  }
 }
