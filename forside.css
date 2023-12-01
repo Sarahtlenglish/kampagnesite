@@ -57,6 +57,7 @@ header {
   width: 100%;
   height: auto;
   position: relative;
+  margin-top: 35px;
   z-index: 1; /* Sæt en z-index for at placere container foran baggrunden */
 }
 
