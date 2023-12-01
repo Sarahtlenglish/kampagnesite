@@ -381,42 +381,44 @@ async function selectOption(option) {
         if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
             conversation = conversation.filter(message => message.role !== 'options');
         }
-    }
 
-    // Håndter valgmuligheden her, f.eks. ved at sende en besked til assistenten
-    let aiResponse = '';
-    if (['A', 'B', 'C', 'D', 'E'].includes(option)) {
-        aiResponse = await generatePredefinedResponse(option);
+        // Håndter valgmuligheden her, f.eks. ved at sende en besked til assistenten
+        let aiResponse = '';
+        if (['A', 'B', 'C', 'D', 'E'].includes(option)) {
+            aiResponse = await generatePredefinedResponse(option);
 
-        // Tilføj assistentens svar til samtalen
-        conversation.push({
-            role: 'ai',
-            content: aiResponse
-        });
+            // Tilføj assistentens svar til samtalen
+            if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
+                conversation.push({
+                    role: 'ai',
+                    content: aiResponse
+                });
 
-        // Generer nye svarmuligheder
-        const followUpOptions = getFollowUpOptions(option);
-        conversation.push({
-            role: 'options',
-            content: followUpOptions
-        });
-    } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
-        // Håndter følgesvarmuligheder baseret på brugerens valg
-        aiResponse = await handleFollowUpOptions(option);
+                // Generer nye svarmuligheder
+                const followUpOptions = getFollowUpOptions(option);
+                conversation.push({
+                    role: 'options',
+                    content: followUpOptions
+                });
+            }
+        } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
+            // Håndter følgesvarmuligheder baseret på brugerens valg
+            aiResponse = await handleFollowUpOptions(option);
 
-        // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-        if (aiResponse.trim() !== '') {
-            conversation.push({
-                role: 'ai',
-                content: aiResponse
-            });
+            // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
+            if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
+                conversation.push({
+                    role: 'ai',
+                    content: aiResponse
+                });
+            }
         }
     } else {
         // Hvis brugeren skriver selv, send beskeden til OpenAI og fortsæt samtalen
         aiResponse = await callOpenAI();
 
         // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-        if (aiResponse.trim() !== '') {
+        if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
             conversation.push({
                 role: 'ai',
                 content: aiResponse
@@ -430,6 +432,8 @@ async function selectOption(option) {
     // Ryd brugerens inputfelt
     userInput.value = '';
 }
+
+
 
 
 
