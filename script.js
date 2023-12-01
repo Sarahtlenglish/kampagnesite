@@ -403,22 +403,12 @@ async function selectOption(option) {
         aiResponse = await handleFollowUpOptions(option);
 
         // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-        if (aiResponse.trim() !== '') {
-            conversation.push({
-                role: 'ai',
-                content: aiResponse
-            });
-        }
-    } else {
-        // Hvis brugeren skriver selv, send beskeden til OpenAI og fortsæt samtalen
-        aiResponse = await callOpenAI();
-
-        // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-        if (aiResponse.trim() !== '') {
-            conversation.push({
-                role: 'ai',
-                content: aiResponse
-            });
+        if (aiResponse && aiResponse.trim() !== '') {
+         // Tilføj assistentens svar
+        conversation.push({
+        role: 'ai',
+        content: aiResponse
+    });
         }
     }
 
