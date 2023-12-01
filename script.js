@@ -14,7 +14,7 @@ async function initializeChat() {
 
     // Send velkomstteksten
     const welcomeText = `
-        Hej! Jeg hedder Sunny, og jeg er din egen personlige Sunset-bot.  For at jeg bedst muligt kan hjælpe dig, skal du vælge en af nedenstående beskeder:
+        Hej! Jeg hedder Sunny, og jeg er din egen personlige Sunset-bot. For at jeg bedst muligt kan hjælpe dig, skal du vælge en af nedenstående beskeder:
     `;
     conversation.push({
         role: 'ai',
@@ -153,51 +153,66 @@ function getFollowUpOptions(option) {
 
 // Funktion til at håndtere følgesvarmuligheder baseret på brugerens valg
 async function handleFollowUpOptions(option) {
-    let aiResponse = '';
+    let aiResponses = [];
 
     switch (option) {
         case 'F':
-            aiResponse = 'Prisen er ikke den eneste fordel hos os. Vores bøffer består nemlig af 99% kød - resten er salt og peber!';
+            aiResponses.push('Prisen er ikke den eneste fordel hos os. Vores bøffer består nemlig af 99% kød - resten er salt og peber!');
             break;
         case 'G':
-            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
+            aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
+            aiResponses.push('Du får dog lige en lille gave af mig alligevel.');
             break;
         case 'H':
-            aiResponse = 'Vidste du, at dit barn er med til at plante et træ, når I bestiller en børnemenu?';
+            aiResponses.push('Vidste du, at dit barn er med til at plante et træ, når I bestiller en børnemenu?');
             break;
         case 'I':
-            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
+            aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
+            aiResponses.push('Du får dog lige en lille gave af mig alligevel.');
             break;
-         case 'J':
-            aiResponse = 'Vidste du, at køerne hygger sig på markerne i minimum 10 måneder om året? Og gerne mere, hvis vejret tillader det.';
+        case 'J':
+            aiResponses.push('Vidste du, at køerne hygger sig på markerne i minimum 10 måneder om året? Og gerne mere, hvis vejret tillader det.');
             break;
         case 'K':
-            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
+            aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
+            aiResponses.push('Du får dog lige en lille gave af mig alligevel.');
             break;
         case 'L':
-            aiResponse = 'Det er desværre forkert, men godt forsøgt!';
+            aiResponses.push('Det er desværre forkert, men godt forsøgt!');
             break;
         case 'M':
-            aiResponse = 'Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag! Du får dog lige en lille gave af mig alligevel.';
+            aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
+            aiResponses.push('Du får dog lige en lille gave af mig alligevel.');
             break;
-            
         // Tilføj yderligere cases efter behov
         default:
-            aiResponse = 'Beklager, jeg forstår ikke valget.';
+            aiResponses.push('Beklager, jeg forstår ikke valget.');
             break;
     }
 
-      // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-      if (aiResponse.trim() !== '') {
-        // Tilføj assistentens svar
+    // Tilføj assistentens svar kun, hvis der er gyldige AI-responser
+    aiResponses.forEach(response => {
+        if (response.trim() !== '') {
+            conversation.push({
+                role: 'ai',
+                content: response
+            });
+        }
+    });
+
+    // Hvis option er 'G' eller 'I', tilføj en ekstra besked med rabatkoden
+    if (['G', 'I'].includes(option)) {
         conversation.push({
             role: 'ai',
-            content: aiResponse
+            content: 'Her er en rabatkode: XYZ123'
         });
     }
 
     // Vis beskeder i chatvinduet
     updateChatUI();
+
+    // Returner AI-responserne for eventuel yderligere brug
+    return aiResponses;
 }
 
 // Funktion til at opdatere chatgrænsefladen baseret på samtalen
