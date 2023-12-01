@@ -36,8 +36,6 @@ async function initializeChat() {
     // Vis beskeder i chatvinduet
     updateChatUI();
 }
-
-// Funktion til at sende brugerens besked til OpenAI og få svar
 async function sendMessage() {
     const userMessage = userInput.value;
 
@@ -47,40 +45,30 @@ async function sendMessage() {
         content: userMessage
     });
 
-    // Hvis brugeren har valgt en mulighed, generer et forudbestemt svar
-    if (userMessage.startsWith('A)') || userMessage.startsWith('B)') || userMessage.startsWith('C)') || userMessage.startsWith('D)')) {
-        const option = userMessage.charAt(0);
-        const aiResponse = await generatePredefinedResponse(option);
-
-        // Tilføj brugerens valg til samtalen uden ekstra tekst
-        conversation.push({
-            role: 'user',
-            content: userMessage.substring(3)  // Viser kun selve beskeden uden valgmuligheden
-        });
-
-        // Generer nye svarmuligheder
-        const followUpOptions = getFollowUpOptions(option);
+    // Håndter brugerens input baseret på scenarier
+    if (userMessage.toLowerCase() === 'istap') {
+        // Hvis brugeren svarer rigtigt på gåden
+        const correctAnswerResponse = "Det er korrekt! Her er en lille gave - fra os til dig: <br> Rabatkode: XYZ123";
         conversation.push({
             role: 'ai',
-            content: followUpOptions
+            content: correctAnswerResponse
+        });
+    } else if (userMessage.toLowerCase() === 'jeg er her bare for sjov') {
+        // Hvis brugeren skriver "Jeg er her bare for sjov"
+        const riddleResponse = "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?";
+        conversation.push({
+            role: 'ai',
+            content: riddleResponse
         });
     } else {
-        // Hvis brugeren skriver selv, send beskeden til OpenAI og fortsæt samtalen
+        // Hvis brugeren skriver andre beskeder, send til OpenAI og fortsæt samtalen
         const aiResponse = await callOpenAI();
 
-        // Tjek om brugerens svar er korrekt på gåden
-        if (userMessage.toLowerCase() === 'istap') {
-            const correctAnswerResponse = "Det er korrekt! Her er en lille gave - fra os til dig: <br> Rabatkode: XYZ123";
+        // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
+        if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
             conversation.push({
                 role: 'ai',
-                content: correctAnswerResponse
-            });
-        } else {
-            // Hvis svaret ikke er korrekt, generer en passende reaktion
-            const incorrectAnswerResponse = "Desværre, det er ikke rigtigt. Lad os prøve igen! Hvad er svaret på gåden?";
-            conversation.push({
-                role: 'ai',
-                content: incorrectAnswerResponse
+                content: aiResponse
             });
         }
     }
@@ -293,7 +281,7 @@ async function callOpenAI() {
                                 Do not use too many exclamation points, and do not be annoying.
                                 
 
-                                If the user send you a message with: "jeg er her bare for sjov" responde with on of these messages this specific message: "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?" 
+                                If the user send you a message with: "jeg er her bare for sjov" responde with this specific message: "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?" 
                               
 
                                 Here is the updated menu:
