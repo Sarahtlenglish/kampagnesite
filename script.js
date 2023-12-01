@@ -146,9 +146,7 @@ function getFollowUpOptions(option) {
             break;
         case 'D':
             followUpOptions = `
-                <br>
-                <button onclick="selectOption('L')">Fortæl mig mere</button>
-                <button onclick="selectOption('M')">Ikke interesseret</button>
+               
             `;
             break;
         // Tilføj yderligere cases efter behov
