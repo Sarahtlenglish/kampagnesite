@@ -150,7 +150,6 @@ function getFollowUpOptions(option) {
     return followUpOptions;
 }
 
-
 // Funktion til at håndtere følgesvarmuligheder baseret på brugerens valg
 async function handleFollowUpOptions(option) {
     let aiResponses = [];
@@ -161,28 +160,24 @@ async function handleFollowUpOptions(option) {
             break;
         case 'G':
             aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
-            aiResponses.push('Du får dog lige en lille gave af mig alligevel.');
             break;
         case 'H':
             aiResponses.push('Vidste du, at dit barn er med til at plante et træ, når I bestiller en børnemenu?');
             break;
         case 'I':
             aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
-            aiResponses.push('Du får dog lige en lille gave af mig alligevel.');
             break;
         case 'J':
             aiResponses.push('Vidste du, at køerne hygger sig på markerne i minimum 10 måneder om året? Og gerne mere, hvis vejret tillader det.');
             break;
         case 'K':
             aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
-            aiResponses.push('Du får dog lige en lille gave af mig alligevel.');
             break;
         case 'L':
             aiResponses.push('Det er desværre forkert, men godt forsøgt!');
             break;
         case 'M':
             aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
-            aiResponses.push('Du får dog lige en lille gave af mig alligevel.');
             break;
         // Tilføj yderligere cases efter behov
         default:
@@ -201,10 +196,24 @@ async function handleFollowUpOptions(option) {
     });
 
     // Hvis option er 'G' eller 'I', tilføj en ekstra besked med rabatkoden
-    if (['G', 'I'].includes(option)) {
+    if (['F', 'H', 'J','L'].includes(option)) {
         conversation.push({
             role: 'ai',
-            content: 'Her er en rabatkode: XYZ123'
+            content: 'Her er en lille gave - fra os til dig'
+        });
+        conversation.push({
+            role: 'ai',
+            content: 'Rabatkode: XYZ123'
+        });
+        
+    } else if (['G', 'I', 'K', 'M'].includes(option)) {
+        conversation.push({
+            role: 'ai',
+            content: 'Du får dog lige en lille gave af mig alligevel.'
+        });
+        conversation.push({
+            role: 'ai',
+            content: 'Rabatkode: XYZ123'
         });
     }
 
