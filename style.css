@@ -78,9 +78,20 @@ img.ai-pic {
 .user-input input {
     flex-grow: 2;
     border: none;
+    border-radius: 20px 0px 0px 20px;
 }
 
 .user-input button {
     background: white;
     border: none;
+    border-style: none;
+    margin-left: -1px;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.sendButtonIcon {
+    width: 75%;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
 }
