@@ -148,4 +148,30 @@ p {
     position: absolute;
     right: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand til højre for billedet */
   }
+  h1 {
+    position: absolute;
+    top: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand fra toppen */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .background-container {
+    margin-top: 125px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    background-image: url('billeder/baggrundstidesk.png');
+  }
+
+  #baggrund {
+    display: none;
+  }
+
+  .container{
+    margin-top: 150px;
+  }
+
+  .button2{
+    margin-top: 150px;
+  }
 }
