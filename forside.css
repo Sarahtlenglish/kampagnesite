@@ -67,7 +67,10 @@ header {
   margin-top: 35px;
   z-index: 1; /* Sæt en z-index for at placere container foran baggrunden */
 }
-
+#sunsetbotty {
+  margin-left: 48vh;
+  margin-right: 52vh;
+}
 h1 {
   font-size: 25px;
   color: white;
@@ -114,7 +117,12 @@ p {
   z-index: 0; 
 }
 
-@media screen and (min-width: 768px) {
+#baggrund {
+  width: 100%;
+
+}
+
+@media screen and (min-width: 1023px) {
   .button {
     border-radius: 30px;
     font-size: 19px;
@@ -124,8 +132,9 @@ p {
   }
 
 
-  .button.button {
-    margin-right: 320px;
+  header {
+    padding-left: 24%;
+    padding-right: 24%;
   }
 
 
