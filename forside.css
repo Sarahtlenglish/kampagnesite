@@ -37,16 +37,22 @@ header {
   font-family: Domine;
   display: flex;
   align-items: center;
-  width: 93px;
-  height: 25px;
+  width: 100px;
+  height: 30px;
 
+}
+
+.button.button p {
+  background-color: transparent;
+  color: #0A0B0C;
+  padding: 0px;
 }
 
 
 .button img {
-  max-width: 20px;
-  max-height: 20px;
-  margin-left: 3px;
+  max-width: 25px;
+  max-height: 25px;
+  margin-left: 0px;
 }
 
 .container {
