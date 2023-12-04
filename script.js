@@ -35,7 +35,10 @@ async function initializeChat() {
 
     // Vis beskeder i chatvinduet
     updateChatUI();
+
 }
+
+
 async function sendMessage() {
     const userMessage = userInput.value;
 
@@ -45,14 +48,14 @@ async function sendMessage() {
         content: userMessage
     });
 
-    // Håndter brugerens input baseret på scenarier
-    if (userMessage.toLowerCase() === 'istap') {
-        // Hvis brugeren svarer rigtigt på gåden
-        const correctAnswerResponse = "Det er korrekt! Her er en lille gave - fra os til dig: <br> Rabatkode: XYZ123";
-        conversation.push({
-            role: 'ai',
-            content: correctAnswerResponse
-        });
+   // Håndter brugerens input baseret på scenarier
+if (userMessage.toLowerCase().includes('istap')) {
+    // Hvis brugeren svarer rigtigt på gåden
+    const correctAnswerResponse = "Det er korrekt! Her er en lille gave - fra os til dig: <br> Rabatkode: XYZ123";
+    conversation.push({
+        role: 'ai',
+        content: correctAnswerResponse
+    });
     } else if (userMessage.toLowerCase() === 'jeg er her bare for sjov') {
         // Hvis brugeren skriver "Jeg er her bare for sjov"
         const riddleResponse = "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?";
@@ -279,9 +282,6 @@ async function callOpenAI() {
                                 subtle that you are not allowed to talk about anything but Sunset. 
                                 Remember that Sunset is short for Sunset Boulevard. 
                                 Do not use too many exclamation points, and do not be annoying.
-                                
-
-                                If the user send you a message with: "jeg er her bare for sjov" responde with this specific message: "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?" 
                               
 
                                 Here is the updated menu:
