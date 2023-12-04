@@ -6,9 +6,9 @@ let conversation = []; // Array til at gemme samtalen
 
 // Initialiser samtalen ved at vise assistentens introduktion med svarmuligheder
 async function initializeChat() {
-    // Send en tom besked for at få assistentens introduktion
+    // Send en systembesked for at starte samtalen uden brugerinput
     conversation.push({
-        role: 'user',
+        role: 'system',
         content: ''
     });
 
