@@ -78,6 +78,11 @@ h1 {
   font-family: Domine;
 }
 
+h2 {
+  display: none;
+
+}
+
 p {
   font-size: 12px;
   font-family: Domine;
@@ -149,12 +154,17 @@ p {
     right: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand til højre for billedet */
   }
   h1 {
-    position: absolute;
-    top: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand fra toppen */
-    left: 50%;
-    transform: translateX(-50%);
+    display: none;
   }
 
+  h2 {
+    display: block;
+      font-size: 25px;
+      color: white;
+      padding-top: 10px;
+      font-family: Domine;
+  }
+    
   .background-container {
     margin-top: 125px;
     background-size: contain;
