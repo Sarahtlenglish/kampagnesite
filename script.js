@@ -90,16 +90,16 @@ async function generatePredefinedResponse(option) {
 
     switch (option) {
         case 'A':
-            aiResponse = 'Det forstår jeg godt!<br> Vidste du godt, at Sunset, trods hvad mange tror, er på samme prisleje som andre Fast Food-kæder?';
+            aiResponse = 'Det forstår jeg godt! Vidste du godt, at Sunset, trods hvad mange tror, er på samme prisleje som andre Fast Food-kæder?';
             break;
         case 'B':
-            aiResponse = 'Det forstår jeg godt!<br> Vidste du, at der er brætspil til hele familien i flere af vores restauranter?';
+            aiResponse = 'Det forstår jeg godt! Vidste du, at der er brætspil til hele familien i flere af vores restauranter?';
             break;
         case 'C':
-            aiResponse = 'Det er også vigtigt for os!<br> Vidste du godt, at mange af Sunsets restaurant producerer deres egne urter I restauranten?   ';
+            aiResponse = 'Det er også vigtigt for os! Vidste du godt, at mange af Sunsets restaurant producerer deres egne urter I restauranten?   ';
             break;
         case 'D':
-            aiResponse = 'Fedt, her er en lille gåde!<br> Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?';
+            aiResponse = 'Fedt, her er en lille gåde! Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?';
             break;
         default:
             aiResponse = 'Beklager, jeg forstår ikke valget.';

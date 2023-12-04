@@ -26,6 +26,7 @@ body {
     font-size: 16px;
 }
 
+
 p {
     margin: 0;
     padding: 0;
@@ -60,6 +61,7 @@ img.ai-pic {
     margin: 8px;
     border-radius: 8px;
     max-width: 32.5vh;
+    width: fit-content;
 }
 
 .user {
@@ -114,24 +116,30 @@ img.ai-pic {
       
 
     .chat-container {
-        width: 70%;
+        width: 60%;
         background-color: #181B1F;
         margin: auto;
         padding: 50px;
     }
 
-    .options p {
-        display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    }
-
     .options button {
-        max-width: 28vw;
+        max-width: 24vw;
+        width: fit-content;
     }
 
     .ai {
-        max-width: 26.5vw;
+        max-width: 24vw;
+        width: fit-content;
+        
+    }
+
+
+    .user {
+        max-width: 24vw;
+    }
+
+    .options p {
+        max-width: 30vw;
     }
 
       
