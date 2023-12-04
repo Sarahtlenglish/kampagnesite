@@ -232,19 +232,22 @@ function updateChatUI() {
     });
 }
 
-// Funktion til at tilføje en besked til chatgrænsefladen
+let lastSender = null; // Holder styr på den seneste afsender
+
 function appendMessage(role, content) {
     let messageElement;
 
     if (role === 'ai') {
-        // Opret container specifikt for 'ai' beskeder
         const messageContainer = document.createElement('div');
         messageContainer.classList.add('message-container');
 
-        const imgElement = document.createElement('img');
-        imgElement.src = 'billeder/avatar.png'; // Sti til assistentens billede
-        imgElement.classList.add('ai-pic');
-        messageContainer.appendChild(imgElement);
+        // Vis avatar kun, hvis den seneste afsender ikke var 'ai'
+        if (lastSender !== 'ai') {
+            const imgElement = document.createElement('img');
+            imgElement.src = 'billeder/avatar.png'; // Sti til assistentens billede
+            imgElement.classList.add('ai-pic');
+            messageContainer.appendChild(imgElement);
+        }
 
         messageElement = document.createElement('div');
         messageElement.classList.add(role);
@@ -252,7 +255,6 @@ function appendMessage(role, content) {
 
         chatContainer.appendChild(messageContainer);
     } else {
-        // For 'user' og andre roller, fortsæt uden message-container
         messageElement = document.createElement('div');
         messageElement.classList.add(role);
         chatContainer.appendChild(messageElement);
@@ -261,7 +263,12 @@ function appendMessage(role, content) {
     const textElement = document.createElement('p');
     textElement.innerHTML = content;
     messageElement.appendChild(textElement);
+
+    // Opdater den seneste afsender
+    lastSender = role;
 }
+
+
 
 
 // Funktion til at sende forespørgsel til OpenAI's GPT og få svar
@@ -506,6 +513,8 @@ function getOptionText(option) {
     }
 }
 
+
+
 // Initialiser chat ved siden af svarmulighederne
 initializeChat();
 
@@ -517,3 +526,4 @@ userInput.addEventListener('keyup', function (event) {
         sendMessage();
     }
 });
+
