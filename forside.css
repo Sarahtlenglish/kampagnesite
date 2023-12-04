@@ -215,4 +215,9 @@ h3 {
   .button2{
     margin-top: 150px;
   }
+
+  .container p {
+    display: none;
+  }
+  
 }
