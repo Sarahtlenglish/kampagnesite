@@ -23,10 +23,10 @@ async function initializeChat() {
 
     // Send knapperne med valgmuligheder
     const optionsMessage = `
-        <button onclick="selectOption('A')">Prisen er afgørende for mig</button>
-        <button onclick="selectOption('B')">Det betyder meget for mig, at der er muligheder for hele familien</button>
-        <button onclick="selectOption('C')">Jeg går meget op i at vide, hvordan min mad er lavet og hvor den kommer fra</button>
-        <button onclick="selectOption('D')">Jeg er her bare for sjov</button>
+        <button onclick="selectOption('A')">Prisen er afgørende for mig 💰</button>
+        <button onclick="selectOption('B')">Det betyder meget for mig, at der er muligheder for hele familien 👪</button>
+        <button onclick="selectOption('C')">Jeg går meget op i at vide, hvordan min mad er lavet og hvor den kommer fra 🌍</button>
+        <button onclick="selectOption('D')">Jeg er her bare for sjov 🎉</button>
     `;
     conversation.push({
         role: 'options',
@@ -116,21 +116,18 @@ function getFollowUpOptions(option) {
     switch (option) {
         case 'A':
             followUpOptions = `
-                <br>
                 <button onclick="selectOption('F')">Fortæl mig mere</button>
                 <button onclick="selectOption('G')">Ikke interesseret</button>
             `;
             break;
         case 'B':
             followUpOptions = `
-                <br>
                 <button onclick="selectOption('H')">Fortæl mig mere</button>
                 <button onclick="selectOption('I')">Ikke interesseret</button>
             `;
             break;
         case 'C':
             followUpOptions = `
-                <br>
                 <button onclick="selectOption('J')">Fortæl mig mere</button>
                 <button onclick="selectOption('K')">Ikke interesseret</button>
             `;
@@ -196,7 +193,7 @@ async function handleFollowUpOptions(option) {
     });
 
     // Hvis option er 'G' eller 'I', tilføj en ekstra besked med rabatkoden
-    if (['F', 'H', 'J','L'].includes(option)) {
+    if (['F', 'H', 'J', 'L'].includes(option)) {
         conversation.push({
             role: 'ai',
             content: 'Her er en lille gave - fra os til dig'
@@ -205,7 +202,7 @@ async function handleFollowUpOptions(option) {
             role: 'ai',
             content: 'Rabatkode: XYZ123'
         });
-        
+
     } else if (['G', 'I', 'K', 'M'].includes(option)) {
         conversation.push({
             role: 'ai',
@@ -237,28 +234,35 @@ function updateChatUI() {
 
 // Funktion til at tilføje en besked til chatgrænsefladen
 function appendMessage(role, content) {
+    let messageElement;
+
     if (role === 'ai') {
-        // Hvis rollen er assistent, tilføj beskeden uden ekstra tekst
-        const messageElement = document.createElement('div');
+        // Opret container specifikt for 'ai' beskeder
+        const messageContainer = document.createElement('div');
+        messageContainer.classList.add('message-container');
+
+        const imgElement = document.createElement('img');
+        imgElement.src = 'billeder/avatar.png'; // Sti til assistentens billede
+        imgElement.classList.add('ai-pic');
+        messageContainer.appendChild(imgElement);
+
+        messageElement = document.createElement('div');
         messageElement.classList.add(role);
+        messageContainer.appendChild(messageElement);
 
-        const textElement = document.createElement('p');
-        textElement.innerHTML = content;
-
-        messageElement.appendChild(textElement);
-        chatContainer.appendChild(messageElement);
+        chatContainer.appendChild(messageContainer);
     } else {
-        // Hvis rollen ikke er assistent, tilføj beskeden
-        const messageElement = document.createElement('div');
+        // For 'user' og andre roller, fortsæt uden message-container
+        messageElement = document.createElement('div');
         messageElement.classList.add(role);
-
-        const textElement = document.createElement('p');
-        textElement.innerHTML = content;
-
-        messageElement.appendChild(textElement);
         chatContainer.appendChild(messageElement);
     }
+
+    const textElement = document.createElement('p');
+    textElement.innerHTML = content;
+    messageElement.appendChild(textElement);
 }
+
 
 // Funktion til at sende forespørgsel til OpenAI's GPT og få svar
 async function callOpenAI() {
@@ -272,8 +276,8 @@ async function callOpenAI() {
             body: JSON.stringify({
                 model: 'gpt-4', // Erstat med den ønskede model
                 messages: [{
-                        role: 'system',
-                        content: `
+                    role: 'system',
+                    content: `
                                 You are a helpful assistant, named Sunny. You only speak Danish. 
                                 Let's talk about the Danish food chain, Sunset Boulevard. You are not allowed 
                                 to suggest other food chains or restaurants. If the user tries to talk about 
@@ -362,23 +366,23 @@ async function callOpenAI() {
                                     Der tages forbehold for trykfejl. April 2021.
                                     ]
             `
-                    },
-                    {
-                        role: 'user',
-                        content: conversation[conversation.length - 1].content
-                    },
-                    {
-                        role: 'assistant',
-                        content: '  '
-                    }, // Tom besked som assistentens svar
-                    {
-                        role: 'assistant',
-                        content: ' '
-                    }, // Tom besked som assistentens svar
-                    {
-                        role: 'assistant',
-                        content: ''
-                    }, // Assistents foreslåede svarmuligheder
+                },
+                {
+                    role: 'user',
+                    content: conversation[conversation.length - 1].content
+                },
+                {
+                    role: 'assistant',
+                    content: '  '
+                }, // Tom besked som assistentens svar
+                {
+                    role: 'assistant',
+                    content: ' '
+                }, // Tom besked som assistentens svar
+                {
+                    role: 'assistant',
+                    content: ''
+                }, // Assistents foreslåede svarmuligheder
                 ]
             })
         });
@@ -491,12 +495,12 @@ function getOptionText(option) {
         case 'J':
             return 'Fortæl mig mere';
         case 'K':
-            return 'Ikke interesseret';     
+            return 'Ikke interesseret';
         case 'L':
             return 'Fortæl mig mere';
         case 'M':
-            return 'Ikke interesseret';  
-            
+            return 'Ikke interesseret';
+
         default:
             return 'Ukendt valg';
     }

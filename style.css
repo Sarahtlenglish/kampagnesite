@@ -6,13 +6,30 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: #181B1F;
 }
 
 .chat-container {
     flex: 1;
     overflow-y: scroll;
     padding: 16px;
-    border-bottom: 1px solid #ccc;
+}
+
+.options button {
+    background-color: #EFEFEF;
+    border: none;
+    margin: 2px 2px 2px 8px;
+    border-radius: 6px;
+    text-align: left;
+    padding: 10px 12px;
+    max-width: 32vh;
+    font-size: 16px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
 }
 
 .user-input {
@@ -25,31 +42,56 @@ input {
     padding: 10px;
 }
 
-button {
-    margin-left: 10px;
-    padding: 5px 25px;
-}
-
 #chat-container {
     display: flex;
     flex-direction: column;
 }
 
+img.ai-pic {
+    width: 15%;
+}
+
 .ai {
     align-self: flex-start;
-    background-color: #f0f0f0;
-    padding: 8px;
+    background-color: #4D5351;
+    color: white;
+    padding: 10px 12px;
     margin: 8px;
     border-radius: 8px;
-    max-width: 30vh;
+    max-width: 32.5vh;
 }
 
 .user {
     align-self: flex-end;
-    background-color: #c8e6c9;
-    padding: 8px;
-    margin: 8px;
+    background-color: #00624D;
+    color: white;
+    padding: 10px 12px;
+    margin: 16px 8px 8px 8px;
     border-radius: 8px;
-    max-width: 30vh;
+    max-width: 32.5vh;
 }
 
+.user-input {
+    display: flex;
+}
+
+.user-input input {
+    flex-grow: 2;
+    border: none;
+    border-radius: 20px 0px 0px 20px;
+}
+
+.user-input button {
+    background: white;
+    border: none;
+    border-style: none;
+    margin-left: -1px;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.sendButtonIcon {
+    width: 75%;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
