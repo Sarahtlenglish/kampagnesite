@@ -92,6 +92,10 @@ p {
   padding: 10px;
 }
 
+h3 {
+  display: none;
+}
+
 #gultekst {
   color: #F4D813;
 }
@@ -105,9 +109,10 @@ p {
   height: 48px;
   padding: 10px 20px;
   border: none;
-  margin: 30px;
+  margin: 30px auto; /* Auto-margin for centering horizontally */
   border-radius: 5px;
   cursor: pointer;
+  display: block; /* Ensuring it's a block-level element */
 }
 
 .background-container {
@@ -164,7 +169,35 @@ p {
       padding-top: 10px;
       font-family: Domine;
   }
-    
+
+  h3 {
+    display: block;
+    font-size: 28px;
+    font-family: Domine;
+    color: white;
+    background-color: #24282C;
+    border: 5px, 0px, 5px, 0px;
+    padding: 10px;
+    text-align: left;
+    margin-top: 0; 
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 150px;
+  }
+
+  #sunsetbotty {
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Sikrer, at det er et block-niveau element */
+  }
+
+  .container p {
+    display: none;
+  }
   .background-container {
     margin-top: 125px;
     background-size: contain;
@@ -177,9 +210,7 @@ p {
     display: none;
   }
 
-  .container{
-    margin-top: 150px;
-  }
+
 
   .button2{
     margin-top: 150px;
