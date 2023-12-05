@@ -57,7 +57,7 @@ header {
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 5px;
   position: relative;
   justify-content: center;
@@ -189,12 +189,23 @@ h3 {
     right: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand til højre for billedet */
   }
 
+
+
+
+  .logo img {
+    width: 81px;
+    height: 81px;
+  }
+
+
+
+
   h2 {
     display: block;
-      font-size: 25px;
-      color: white;
-      padding-top: 10px;
-      font-family: Domine;
+    font-size: 35px;
+    color: white;
+    padding-top: 10px;
+    font-family: Domine;
   }
 
   .box1{
@@ -205,13 +216,14 @@ h3 {
     
     .box2{
     grid-row: 2;
-    grid-column: 1/5;
+    grid-column: 3/3;
     margin-right: none;
     }
 
     #sunsetbotty{
       width: 400px;
       height: 450px;
+      margin-top: 100px;
     }
     
     .box3{
@@ -220,15 +232,17 @@ h3 {
     
     .box4{
     grid-row: 4;
-    grid-column: 1/5;
+    grid-column: 3/3;
     }
 
     .box5 {
       grid-row: 2;
-      grid-column: 3/5;
+      grid-column: 4/6;
       text-align: left;
       display: block;
-      width: fit-content;
+      width: 557px; /* Adjust the width property as needed */
+      margin-bottom: 300px;
+      
    }
 
     .box5 p{
@@ -240,6 +254,8 @@ h3 {
       padding: 10px;
       margin: none;
       justify-content: center;
+
+
     }
 
 
@@ -247,9 +263,9 @@ h3 {
     display: block;
     position: absolute;
     background-color: #191B1F;
-    top: 250px;
+    top: 160px;
     width: 100%;
-    height: 75%;
+    height: 85%;
     background-size: cover;
     z-index: 0;
   }
