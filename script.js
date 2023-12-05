@@ -1,6 +1,6 @@
 const chatContainer = document.getElementById('chat-container');
 const userInput = document.getElementById('user-input');
-const apiKey = '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'; // Erstat med din faktiske nøgle
+const apiKey = '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'; // api nøgle
 
 let conversation = []; // Array til at gemme samtalen
 
@@ -48,31 +48,46 @@ async function sendMessage() {
         content: userMessage
     });
 
-   // Håndter brugerens input baseret på scenarier
-if (userMessage.toLowerCase().includes('istap')) {
-    // Hvis brugeren svarer rigtigt på gåden
-    const correctAnswerResponse = "Det er korrekt! Her er en lille gave - fra os til dig: <br> Rabatkode: XYZ123";
-    conversation.push({
-        role: 'ai',
-        content: correctAnswerResponse
-    });
-    } else if (userMessage.toLowerCase() === 'jeg er her bare for sjov') {
-        // Hvis brugeren skriver "Jeg er her bare for sjov"
-        const riddleResponse = "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?";
+    // Liste over uacceptable ord
+    const unacceptableWords = ['neger', 'luder', 'perker', 'fuck dig'];  // uacceptable ord
+
+    // Kontroller om brugerens besked indeholder uacceptable ord
+    const containsUnacceptableWord = unacceptableWords.some(word => userMessage.toLowerCase().includes(word.toLowerCase()));
+
+    if (containsUnacceptableWord) {
+        // Hvis brugeren bruger uacceptable ord, giver et specifikt svar
+        const inappropriateResponse = "Undskyld, men vi ønsker at opretholde en respektfuld samtale. Jeg må derfor bede dig om at formulere dig anderledes.";
         conversation.push({
             role: 'ai',
-            content: riddleResponse
+            content: inappropriateResponse
         });
     } else {
-        // Hvis brugeren skriver andre beskeder, send til OpenAI og fortsæt samtalen
-        const aiResponse = await callOpenAI();
-
-        // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-        if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
+        // Håndter brugerens input baseret på scenarier
+        if (userMessage.toLowerCase().includes('istap')) {
+            // Hvis brugeren svarer rigtigt på gåden
+            const correctAnswerResponse = "Det er korrekt! Her er en lille gave - fra os til dig: <br> Rabatkode: XYZ123";
             conversation.push({
                 role: 'ai',
-                content: aiResponse
+                content: correctAnswerResponse
             });
+        } else if (userMessage.toLowerCase() === 'jeg er her bare for sjov') {
+            // Hvis brugeren skriver "Jeg er her bare for sjov"
+            const riddleResponse = "Fedt! Her er en lille gåde: Det vokser kun om vinteren og det vokser oppefra og ned – hvad er det?";
+            conversation.push({
+                role: 'ai',
+                content: riddleResponse
+            });
+        } else {
+            // Hvis brugeren skriver andre beskeder, send til OpenAI og fortsæt samtalen
+            const aiResponse = await callOpenAI();
+
+            // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
+            if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
+                conversation.push({
+                    role: 'ai',
+                    content: aiResponse
+                });
+            }
         }
     }
 
@@ -82,6 +97,7 @@ if (userMessage.toLowerCase().includes('istap')) {
     // Ryd brugerens inputfelt
     userInput.value = '';
 }
+
 
 
 // Funktion til at generere forudbestemt svar baseret på brugerens valgmulighed
@@ -196,21 +212,21 @@ async function handleFollowUpOptions(option) {
     if (['F', 'H', 'J', 'L'].includes(option)) {
         conversation.push({
             role: 'ai',
-            content: 'Her er en lille gave - fra os til dig'
+            content: 'For at gøre turen endnu mere værd, så vil jeg gerne give dig en særlig gave. <br><br> 🌟 Rabatkode: SUNSETCHATBOT <br><br> Brug denne kode ved checkout og få 10% rabat på dit næste køb. Vi ønsker, at hver tur med os skal være ekstraordinær, og denne rabat er vores måde at sige tak for at vælge os.'
         });
         conversation.push({
             role: 'ai',
-            content: 'Rabatkode: XYZ123'
+            content: 'Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.'
         });
 
     } else if (['G', 'I', 'K', 'M'].includes(option)) {
         conversation.push({
             role: 'ai',
-            content: 'Du får dog lige en lille gave af mig alligevel.'
+            content: 'For at gøre turen endnu mere værd, så vil jeg gerne give dig en særlig gave. <br><br> 🌟 Rabatkode: SUNSETCHATBOT <br><br> Brug denne kode ved checkout og få 10% rabat på dit næste køb. Vi ønsker, at hver tur med os skal være ekstraordinær, og denne rabat er vores måde at sige tak for at vælge os.'
         });
         conversation.push({
             role: 'ai',
-            content: 'Rabatkode: XYZ123'
+            content: 'Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.'
         });
     }
 
@@ -356,7 +372,7 @@ async function callOpenAI() {
                                     DIPS Pr. stk.
                                     Bearnaise · Chipotlemayo · Mayo · Smokey BBQ-sauce · Aioli · Cajunmayo · Ketchup 5,-
                                     
-                                    PRØV VORES SAFTIGE BØFFER AF IRSK HEREFORD KØDKVÆG
+                               
                                     HEREFORD BURGER Single Menu Ekstra: Herefordbøf +25,- | Peberbacon +8,- | Cheddarost +6,-
                                     Hereford Bearnaise 69,-99,- 170 g. Herefordbøf · cheddarost · peberbacon · pickles · bearnaisemayo · bløde, stegte løg · iceberg · løg
                                     Hereford Cajun 69,-99,- 170 g. Herefordbøf · cheddarost · cajunmayo · tomat · pickles · rødløg · bløde, stegte løg · iceberg
@@ -512,7 +528,6 @@ function getOptionText(option) {
             return 'Ukendt valg';
     }
 }
-
 
 
 // Initialiser chat ved siden af svarmulighederne
