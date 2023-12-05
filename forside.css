@@ -39,7 +39,6 @@ header {
   align-items: center;
   width: 100px;
   height: 30px;
-
 }
 
 .button.button p {
@@ -70,43 +69,44 @@ header {
   margin-top: 35px;
   z-index: 1; /* Sæt en z-index for at placere container foran baggrunden */
 }
+
 .box1{
-grid-row: 1;
-grid-column: 1/5;
+ grid-row: 1;
+ grid-column: 1/5;
 }
 
 .box2{
-grid-row: 2;
-grid-column: 1/5;
+ grid-row: 2;
+ grid-column: 1/5;
 }
 
 #sunsetbotty{
-margin-right: 30px;
+ margin-right: 30px;
 }
 
 .box3{
-grid-row: 3;
-grid-column: 1/5;
-background-color: #24282C;
+ grid-row: 3;
+ grid-column: 1/5;
+ background-color: #24282C;
 }
 
 .box3 p{
-font-size: 12px;
-font-family: Domine;
-color: white;
-border: 5px, 0px, 5px, 0px;
-padding: 10px;
-margin: 12px 25px;
+ font-size: 12px;
+ font-family: Domine;
+ color: white;
+ border: 5px, 0px, 5px, 0px;
+ padding: 10px;
+ margin: 12px 25px;
 }
 
 .box4{
   grid-row: 4;
   grid-column: 1/5;
-  }
+}
 
 .box5{
   display: none;
-  }
+}
 
 h1 {
   font-size: 25px;
@@ -117,7 +117,6 @@ h1 {
 
 h2 {
   display: none;
-
 }
 
 h3 {
@@ -164,121 +163,111 @@ h3 {
 
 @media screen and (min-width: 1023px) {
 
-  .button {
-    border-radius: 30px;
-    font-size: 19px;
-    width: 230px;
-    height: 51px;
-    position: relative;
-  }
+.button {
+  border-radius: 30px;
+  font-size: 19px;
+  width: 230px;
+  height: 51px;
+  position: relative;
+}
 
+header {
+  padding-left: 24%;
+  padding-right: 24%;
+  justify-content: space-around;
+}
 
-  header {
-    padding-left: 24%;
-    padding-right: 24%;
-  }
+.button p {
+  margin-left: 40px;
+}
 
+.button img {
+  max-width: 50px;
+  max-height: 50px;
+  position: absolute;
+  right: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand til højre for billedet */
+}
 
-  .button p {
-    margin-left: 40px;
-  }
+.logo img {
+  width: 81px;
+  height: 81px;
+}
 
-  .button img {
-    max-width: 50px;
-    max-height: 50px;
-    position: absolute;
-    right: 20px; /* Juster denne værdi efter behov for at indstille den ønskede afstand til højre for billedet */
-  }
+h2 {
+  display: block;
+  font-size: 35px;
+  color: white;
+  padding-top: 10px;
+  font-family: Domine;
+}
 
-
-
-
-  .logo img {
-    width: 81px;
-    height: 81px;
-  }
-
-
-
-
-  h2 {
-    display: block;
-    font-size: 35px;
-    color: white;
-    padding-top: 10px;
-    font-family: Domine;
-  }
-
-  .box1{
-    grid-row: 1;
-    grid-column: 1/5;
-    display: none;
-    }
+.box1{
+  grid-row: 1;
+  grid-column: 1/5;
+  display: none;
+}
     
-    .box2{
-    grid-row: 2;
-    grid-column: 3/3;
-    margin-right: none;
-    }
+.box2{
+  grid-row: 2;
+  grid-column: 3/3;
+  margin-right: none;
+}
 
-    #sunsetbotty{
-      width: 400px;
-      height: 450px;
-      margin-top: 100px;
-    }
+#sunsetbotty{
+  width: 400px;
+  height: 450px;
+  margin-top: 100px;
+}
     
-    .box3{
-    display: none;
-    }
+.box3{
+  display: none;
+}
     
-    .box4{
-    grid-row: 4;
-    grid-column: 3/3;
-    }
+.box4{
+  grid-row: 4;
+  grid-column: 3/3;
+}
 
-    .box5 {
-      grid-row: 2;
-      grid-column: 4/6;
-      text-align: left;
-      display: block;
-      width: 557px; /* Adjust the width property as needed */
-      margin-bottom: 300px;
-      
-   }
+.box5 {
+  grid-row: 2;
+  grid-column: 4/6;
+  text-align: left;
+  display: block;
+  width: 557px; /* Adjust the width property as needed */
+  margin-bottom: 300px;    
+}
 
-    .box5 p{
-      font-size: 28px;
-      font-family: Domine;
-      color: white;
-      background-color: #24282C;
-      border: 5px, 0px, 5px, 0px;
-      padding: 10px;
-      margin: none;
-      justify-content: center;
-
-
-    }
+.box5 p{
+  font-size: 28px;
+  font-family: Domine;
+  color: white;
+  background-color: #24282C;
+  border: 5px, 0px, 5px, 0px;
+  padding: 10px;
+  margin: none;
+  justify-content: center;
+}
 
 
-  .baggrund2 {
-    display: block;
-    position: absolute;
-    top: 160px;
-    width: 100%;
-    height: 85%;
-    background-size: cover;
-    z-index: 0;
-  }
+.baggrund2 {
+  display: block;
+  position: absolute;
+  top: 160px;
+  width: 100%;
+  height: 85%;
+  background-size: cover;
+  z-index: 0;
+}
 
-  .baggrund {
-    display: none;
-  }
+.baggrund {
+  display: none;
+}
 
-  .button2{
-    margin-top: 150px;
-    width: 281px;
-    height: 52px;
-    font-size: 20px;
-  }
+.button2{
+  margin-top: 150px;
+  width: 281px;
+  height: 52px;
+  font-size: 20px;
+}
   
 }
