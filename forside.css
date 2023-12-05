@@ -169,12 +169,12 @@ h3 {
   width: 230px;
   height: 51px;
   position: relative;
+  text-transform: uppercase;
 }
 
 header {
   padding-left: 24%;
   padding-right: 24%;
-  justify-content: space-around;
 }
 
 .button p {
@@ -191,6 +191,7 @@ header {
 .logo img {
   width: 81px;
   height: 81px;
+  margin-right: 75px;
 }
 
 h2 {
