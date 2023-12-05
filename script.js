@@ -21,6 +21,7 @@ async function initializeChat() {
         content: welcomeText
     });
 
+    
     // Send knapperne med valgmuligheder
     const optionsMessage = `
         <button onclick="selectOption('A')">Prisen er afgørende for mig 💰</button>
@@ -28,6 +29,7 @@ async function initializeChat() {
         <button onclick="selectOption('C')">Jeg går meget op i at vide, hvordan min mad er lavet og hvor den kommer fra 🌍</button>
         <button onclick="selectOption('D')">Jeg er her bare for sjov 🎉</button>
     `;
+    
     conversation.push({
         role: 'options',
         content: optionsMessage
@@ -36,9 +38,9 @@ async function initializeChat() {
     // Vis beskeder i chatvinduet
     updateChatUI();
 
+    
+
 }
-
-
 async function sendMessage() {
     const userMessage = userInput.value;
 
@@ -79,15 +81,23 @@ async function sendMessage() {
             });
         } else {
             // Hvis brugeren skriver andre beskeder, send til OpenAI og fortsæt samtalen
-            const aiResponse = await callOpenAI();
+            setTimeout(async () => {
+                const aiResponse = await callOpenAI();
 
-            // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
-            if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
-                conversation.push({
-                    role: 'ai',
-                    content: aiResponse
-                });
-            }
+                // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
+                if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
+                    conversation.push({
+                        role: 'ai',
+                        content: aiResponse
+                    });
+                }
+
+                // Vis beskeder i chatvinduet
+                updateChatUI();
+
+                // Ryd brugerens inputfelt
+                userInput.value = '';
+            }, 1000); // Tilføj en forsinkelse på 1000 millisekunder (1 sekund)
         }
     }
 
@@ -97,6 +107,7 @@ async function sendMessage() {
     // Ryd brugerens inputfelt
     userInput.value = '';
 }
+
 
 
 
@@ -121,6 +132,7 @@ async function generatePredefinedResponse(option) {
             aiResponse = 'Beklager, jeg forstår ikke valget.';
             break;
     }
+
 
     return aiResponse;
 }
@@ -158,6 +170,8 @@ function getFollowUpOptions(option) {
             // Returner en tom streng, når der ikke er definerede opfølgningsmuligheder
             break;
     }
+
+    
 
     return followUpOptions;
 }
@@ -208,6 +222,8 @@ async function handleFollowUpOptions(option) {
         }
     });
 
+
+
     // Hvis option er 'G' eller 'I', tilføj en ekstra besked med rabatkoden
     if (['F', 'H', 'J', 'L'].includes(option)) {
         conversation.push({
@@ -229,6 +245,21 @@ async function handleFollowUpOptions(option) {
             content: 'Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.'
         });
     }
+
+      // Tilføj assistentens svar med forsinkelse
+      aiResponses.forEach(async response => {
+        if (response.trim() !== '') {
+            // Tilføj forsinkelse her
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            conversation.push({
+                role: 'ai', 
+                content: response
+            });
+        }
+    });
+
+    
+    
 
     // Vis beskeder i chatvinduet
     updateChatUI();
@@ -282,6 +313,9 @@ function appendMessage(role, content) {
 
     // Opdater den seneste afsender
     lastSender = role;
+
+       // Rul ned til den seneste besked
+       chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 
@@ -421,6 +455,8 @@ async function callOpenAI() {
         console.error('Error calling OpenAI API:', error);
         // Håndter fejlen her, f.eks. vis en fejlbesked til brugeren
     }
+
+    
 }
 async function selectOption(option) {
     // Hvis det er en valgmulighed, gem brugerens valg og tilføj til samtalen
@@ -441,33 +477,47 @@ async function selectOption(option) {
         if (['A', 'B', 'C', 'D', 'E'].includes(option)) {
             aiResponse = await generatePredefinedResponse(option);
 
-            // Tilføj assistentens svar til samtalen
-            if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
-                conversation.push({
-                    role: 'ai',
-                    content: aiResponse
-                });
+            // Vis brugerens valg med det samme
+            updateChatUI();
 
-                // Generer nye svarmuligheder
-                const followUpOptions = getFollowUpOptions(option);
-                conversation.push({
-                    role: 'options',
-                    content: followUpOptions
-                });
-            }
+            // Vent i 1000 ms (1 sekund)
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Tilføj assistentens svar til samtalen
+            conversation.push({
+                role: 'ai',
+                content: aiResponse
+            });
+
+            // Generer nye svarmuligheder
+            const followUpOptions = getFollowUpOptions(option);
+            conversation.push({
+                role: 'options',
+                content: followUpOptions
+            });
         } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
-            // Håndter følgesvarmuligheder baseret på brugerens valg
+            // Håndter følgesvarmuligheder baseret på brugerens valg med forsinkelse
+            const delay = option === 'G' || option === 'I' || option === 'K' ? 2000 : 1000; // Ændret forsinkelsen for 'G', 'I', 'K'
+            await new Promise(resolve => setTimeout(resolve, delay));
             aiResponse = await handleFollowUpOptions(option);
 
             // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
             if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
-                conversation.push({
-                    role: 'ai',
-                    content: aiResponse
-                });
+                const aiMessages = aiResponse.split('\n');
+                for (const message of aiMessages) {
+                    conversation.push({
+                        role: 'ai',
+                        content: message.trim()
+                    });
+                    // Vent i 1000 ms (1 sekund) mellem hver besked
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    // Vis beskeder i chatvinduet efter hver besked
+                    updateChatUI();
+                }
             }
         } else if (['D', 'G', 'I', 'K'].includes(option)) {
-            // Håndter 'D' samt følgesvarmuligheder baseret på brugerens valg
+            // Håndter 'D' samt følgesvarmuligheder baseret på brugerens valg med forsinkelse
+            await new Promise(resolve => setTimeout(resolve, 1000));
             if (option === 'D') {
                 // Behandl 'D' som brugerinput og send det til OpenAI for at få et ægte svar
                 aiResponse = await callOpenAI();
@@ -479,6 +529,12 @@ async function selectOption(option) {
     } else {
         // Hvis brugeren skriver selv, send beskeden til OpenAI og fortsæt samtalen
         aiResponse = await callOpenAI();
+
+        // Vis brugerens valg med det samme
+        updateChatUI();
+
+        // Vent i 1000 ms (1 sekund)
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
         if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
@@ -495,6 +551,9 @@ async function selectOption(option) {
     // Ryd brugerens inputfelt
     userInput.value = '';
 }
+
+
+
 
 // Funktion til at hente teksten for en given valgmulighed
 function getOptionText(option) {
