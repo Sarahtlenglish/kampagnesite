@@ -171,7 +171,6 @@ function getFollowUpOptions(option) {
             break;
     }
 
-    
 
     return followUpOptions;
 }
@@ -212,39 +211,48 @@ async function handleFollowUpOptions(option) {
 
     }
 
-    // Tilføj assistentens svar kun, hvis der er gyldige AI-responser
-    aiResponses.forEach(response => {
+    if (option === 'G' || option === 'I') {
+        aiResponses.push('For at gøre turen endnu mere værd, så vil jeg gerne give dig en særlig gave. <br><br> 🌟 Rabatkode: SUNSETCHATBOT <br><br> Brug denne kode ved checkout og få 10% rabat på dit næste køb. Vi ønsker, at hver tur med os skal være ekstraordinær, og denne rabat er vores måde at sige tak for at vælge os.');
+        aiResponses.push('Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.');
+    }
+
+    // Gå igennem hvert svar og tilføj dem med forsinkelse til samtalen
+    for (const response of aiResponses) {
         if (response.trim() !== '') {
             conversation.push({
                 role: 'ai',
                 content: response
             });
+            updateChatUI(); // Opdater chatgrænsefladen hvis nødvendigt
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Vent i 1000 ms (1 sekund)
         }
-    });
+    }
 
 
 
     // Hvis option er 'G' eller 'I', tilføj en ekstra besked med rabatkoden
-    if (['F', 'H', 'J', 'L'].includes(option)) {
-        conversation.push({
-            role: 'ai',
-            content: 'For at gøre turen endnu mere værd, så vil jeg gerne give dig en særlig gave. <br><br> 🌟 Rabatkode: SUNSETCHATBOT <br><br> Brug denne kode ved checkout og få 10% rabat på dit næste køb. Vi ønsker, at hver tur med os skal være ekstraordinær, og denne rabat er vores måde at sige tak for at vælge os.'
-        });
-        conversation.push({
-            role: 'ai',
-            content: 'Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.'
-        });
 
-    } else if (['G', 'I', 'K', 'M'].includes(option)) {
-        conversation.push({
-            role: 'ai',
-            content: 'For at gøre turen endnu mere værd, så vil jeg gerne give dig en særlig gave. <br><br> 🌟 Rabatkode: SUNSETCHATBOT <br><br> Brug denne kode ved checkout og få 10% rabat på dit næste køb. Vi ønsker, at hver tur med os skal være ekstraordinær, og denne rabat er vores måde at sige tak for at vælge os.'
-        });
-        conversation.push({
-            role: 'ai',
-            content: 'Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.'
-        });
-    }
+    // Tilføj den første besked til samtalen
+conversation.push({
+    role: 'ai',
+    content: 'For at gøre turen endnu mere værd, så vil jeg gerne give dig en særlig gave. <br><br> 🌟 Rabatkode: SUNSETCHATBOT <br><br> Brug denne kode ved checkout og få 10% rabat på dit næste køb. Vi ønsker, at hver tur med os skal være ekstraordinær, og denne rabat er vores måde at sige tak for at vælge os.'
+});
+
+// Opdater chatgrænsefladen med den første besked
+updateChatUI();
+
+// Vent i 1000 ms (1 sekund) før den næste besked tilføjes
+await new Promise(resolve => setTimeout(resolve, 1000));
+
+// Tilføj den anden besked til samtalen
+conversation.push({
+    role: 'ai',
+    content: 'Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.'
+});
+
+// Opdater chatgrænsefladen igen med den anden besked
+updateChatUI();
+
 
       // Tilføj assistentens svar med forsinkelse
       aiResponses.forEach(async response => {
@@ -258,7 +266,6 @@ async function handleFollowUpOptions(option) {
         }
     });
 
-    
     
 
     // Vis beskeder i chatvinduet
@@ -475,6 +482,7 @@ async function selectOption(option) {
         // Håndter valgmuligheden her, f.eks. ved at sende en besked til assistenten
         let aiResponse = '';
         if (['A', 'B', 'C', 'D', 'E'].includes(option)) {
+            // Generer AI svar
             aiResponse = await generatePredefinedResponse(option);
 
             // Vis brugerens valg med det samme

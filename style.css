@@ -142,7 +142,20 @@ img.ai-pic {
         max-width: 30vw;
     }
 
-    
+    input:focus {
+        outline: none;
+    }
 
+    input {
+        flex: 1;
+        padding: 10px;
+        outline: none; /* Fjerner border når input er i fokus */
+        max-width: 1182px;
+    }    
+    .user-input {
+        display: flex;
+        justify-content: center; 
+        padding: 15px;
+    }
       
   }
