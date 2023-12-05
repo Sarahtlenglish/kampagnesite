@@ -230,43 +230,6 @@ async function handleFollowUpOptions(option) {
 
 
 
-    // Hvis option er 'G' eller 'I', tilføj en ekstra besked med rabatkoden
-
-    // Tilføj den første besked til samtalen
-conversation.push({
-    role: 'ai',
-    content: 'For at gøre turen endnu mere værd, så vil jeg gerne give dig en særlig gave. <br><br> 🌟 Rabatkode: SUNSETCHATBOT <br><br> Brug denne kode ved checkout og få 10% rabat på dit næste køb. Vi ønsker, at hver tur med os skal være ekstraordinær, og denne rabat er vores måde at sige tak for at vælge os.'
-});
-
-// Opdater chatgrænsefladen med den første besked
-updateChatUI();
-
-// Vent i 1000 ms (1 sekund) før den næste besked tilføjes
-await new Promise(resolve => setTimeout(resolve, 1000));
-
-// Tilføj den anden besked til samtalen
-conversation.push({
-    role: 'ai',
-    content: 'Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.'
-});
-
-// Opdater chatgrænsefladen igen med den anden besked
-updateChatUI();
-
-
-      // Tilføj assistentens svar med forsinkelse
-      aiResponses.forEach(async response => {
-        if (response.trim() !== '') {
-            // Tilføj forsinkelse her
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            conversation.push({
-                role: 'ai', 
-                content: response
-            });
-        }
-    });
-
-    
 
     // Vis beskeder i chatvinduet
     updateChatUI();
