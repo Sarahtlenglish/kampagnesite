@@ -223,9 +223,9 @@ h3 {
   }
 
 .navbar #button {
-  font-size: 19px;
-  width: 230px;
-  height: 51px;
+  font-size: 14px;
+  width: 16.23994147768837vw;
+  height: 4.7767393561786085vh;
   margin-right: 15.628691983122362vw;
   
 }
@@ -324,7 +324,7 @@ h2 {
 }
 
 .button2{
-  margin-top: 10.384215991692628vh;
+  margin-top: 5vh;
   width: 281px;
   height: 52px;
   font-size: 20px;
