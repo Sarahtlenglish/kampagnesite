@@ -303,7 +303,6 @@ h2 {
   font-family: Domine;
   color: white;
   background-color: #24282C;
-  width: fit-content;
   border: 5px, 0px, 5px, 0px;
   padding: 10px;
   margin: none;
@@ -325,12 +324,10 @@ h2 {
 }
 
 .button2{
-  margin-top: 8vh;
+  margin-top: 10.384215991692628vh;
   width: 281px;
   height: 52px;
   font-size: 20px;
 }
-
-
 
 }
