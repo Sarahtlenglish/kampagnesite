@@ -74,7 +74,7 @@ body {
 .navbar #logo {
   width: 49px;
   height: 49px;
-  margin-left: 24px;
+  margin-left: 2.4870466321243523vw;
 }
 
 .navbar #title {
@@ -96,7 +96,7 @@ body {
   font-family: Domine;
   display: flex;
   align-items: center;
-  margin-right: 24px;
+  margin-right: 2.4870466321243523vw;
   margin-left: auto;
   width: 100px;
   height: 30px;
@@ -121,7 +121,6 @@ body {
   width: 100%;
   height: auto;
   position: relative;
-  margin-top: 35px;
   z-index: 1; /* Sæt en z-index for at placere container foran baggrunden */
 }
 
@@ -136,7 +135,7 @@ body {
 }
 
 #sunsetbotty{
- margin-right: 30px;
+ margin-right: 3.1088082901554404vw;
 }
 
 .box3{
@@ -151,7 +150,7 @@ body {
  color: white;
  border: 5px, 0px, 5px, 0px;
  padding: 10px;
- margin: 12px 25px;
+ margin: 1.2461059190031152vh 15;
 }
 
 .box4{
@@ -164,9 +163,9 @@ body {
 }
 
 h1 {
-  font-size: 25px;
+  font-size: 2.596053997923157vh;
   color: white;
-  padding-top: 10px;
+  padding-top: 1.0384215991692627vh;
   font-family: Domine;
 }
 
@@ -192,7 +191,7 @@ h3 {
   height: 48px;
   padding: 10px 20px;
   border: none;
-  margin: 30px auto; /* Auto-margin for centering horizontally */
+  margin: 3.115264797507788vh auto; /* Auto-margin for centering horizontally */
   border-radius: 5px;
   cursor: pointer;
   display: block; /* Ensuring it's a block-level element */
@@ -216,17 +215,18 @@ h3 {
   display: none;
 }
 
+
 @media screen and (min-width: 1023px) {
 
   .navbar {
-    height: 146px;
+    height: 12vh;
   }
 
 .navbar #button {
   font-size: 19px;
   width: 230px;
   height: 51px;
-  margin-right: 320px;
+  margin-right: 15.628691983122362vw;
   
 }
 
@@ -246,11 +246,11 @@ h3 {
   flex-grow: 1;
   text-align: center;
   display: block;
-  font-size: 35px;
+  font-size: 25px;
   color: white;
   font-weight: bold;
   font-family: Domine;
-  margin-left: 12vw;
+  margin-left: 5vw;
 }
 
 h2 {
@@ -268,7 +268,7 @@ h2 {
 }
     
 .box2{
-  grid-row: 2;
+  grid-row: 1;
   grid-column: 3/3;
   margin-right: none;
 }
@@ -276,7 +276,7 @@ h2 {
 #sunsetbotty{
   width: 400px;
   height: 450px;
-  margin-top: 100px;
+  margin-top: 2.8225806451612905vw;
 }
     
 .box3{
@@ -289,16 +289,17 @@ h2 {
 }
 
 .box5 {
-  grid-row: 2;
+  grid-row: 1;
   grid-column: 4/6;
   text-align: left;
   display: block;
   max-width: 557px; /* Adjust the width property as needed */
-  margin-bottom: 300px;    
+  margin-bottom: 31vh; 
+  margin-right: 6vw;   
 }
 
 .box5 p{
-  font-size: 28px;
+  font-size: 17px;
   font-family: Domine;
   color: white;
   background-color: #24282C;
@@ -312,10 +313,9 @@ h2 {
 .baggrund2 {
   display: block;
   position: absolute;
-  top: 200px;
+  top: 15vh;
   width: 100%;
   height: 85%;
-  background-size: cover;
   z-index: 0;
 }
 
@@ -324,7 +324,7 @@ h2 {
 }
 
 .button2{
-  margin-top: 150px;
+  margin-top: 10.384215991692628vh;
   width: 281px;
   height: 52px;
   font-size: 20px;
