@@ -9,7 +9,7 @@ body {
   src: url(https://fonts.google.com/specimen/Domine);
 }
 
-header {
+/* header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,9 +18,9 @@ header {
   border-bottom: 3px solid #ffd700;
   position: relative;
   z-index: 2; /* Sæt en z-index for at placere header foran baggrunden */
-}
+/* }  */
 
-.logo img {
+/* .logo img {
   width: 49px;
   height: 49px;
 }
@@ -45,13 +45,66 @@ header {
   background-color: transparent;
   color: #0A0B0C;
   padding: 0px;
-}
+} */
 
 
-.button img {
+/* .button img {
   max-width: 25px;
   max-height: 25px;
   margin-left: 0px;
+} */
+
+
+.navbar {
+  background-color: #191B1F;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+  border-bottom: 3px solid #ffd700;
+  height: 75px;
+  width: 393px;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+.navbar #logo {
+  width: 49px;
+  height: 49px;
+  margin-left: 24px;
+}
+
+.navbar #title {
+  flex-grow: 1;
+  text-align: center;
+  display: none;
+}
+
+.navbar #button {
+  background-color: #F4D813;
+  color: #0A0B0C;
+  padding-left: 12px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 10px;
+  font-family: Domine;
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+  margin-left: auto;
+  width: 100px;
+  height: 30px;
+}
+
+.navbar #button img {
+  max-width: 100%; /* Sørger for, at billedet ikke strækker sig ud over knappens bredde */
+  max-height: 100%; /* Sørger for, at billedet ikke strækker sig ud over knappens højde */
+  margin-right: 5px; /* Juster dette mellemrum efter behov */
 }
 
 .grid-container {
@@ -270,5 +323,7 @@ h2 {
   height: 52px;
   font-size: 20px;
 }
-  
+
+
+
 }
