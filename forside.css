@@ -64,7 +64,7 @@ body {
   position: relative;
   border-bottom: 3px solid #ffd700;
   height: 75px;
-  width: 393px;
+  width: 100%;
 }
 
 .navbar a {
