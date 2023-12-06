@@ -289,8 +289,6 @@ function appendMessage(role, content) {
 }
 
 
-
-
 // Funktion til at sende forespørgsel til OpenAI's GPT og få svar
 async function callOpenAI() {
     try {
