@@ -80,6 +80,7 @@ body {
 .navbar #title {
 
   display: none;
+  white-space: nowrap; /* Forhindrer tekstombrydning */
 }
 
 .navbar #button {
@@ -99,6 +100,7 @@ body {
   margin-left: auto;
   width: 100px;
   height: 30px;
+  white-space: nowrap; /* Forhindrer tekstombrydning */
 }
 
 .navbar #button img {
@@ -248,7 +250,7 @@ h3 {
   color: white;
   font-weight: bold;
   font-family: Domine;
-  margin-left: 200px;
+  margin-left: 12vw;
 }
 
 h2 {
