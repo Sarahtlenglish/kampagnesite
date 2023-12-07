@@ -279,9 +279,9 @@ body {
     
     .navbar #button {
       font-size: 14px;
-      width: 10vw;
+      width: 200px;
       height: 4.7767393561786085vh;
-      margin-right: 17.6vw;
+      margin-right: 17vw;
       
     }
     
@@ -294,7 +294,7 @@ body {
     .navbar #logo {
       width: 81px;
       height: 81px;
-      margin-left: 320px;
+      margin-left: 17vw;
     }
     
     .navbar #title {
