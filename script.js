@@ -211,7 +211,7 @@ async function handleFollowUpOptions(option) {
 
     }
 
-    if (option === 'G' || option === 'I') {
+    if (option === 'F' || option === 'G' || option === 'H' || option === 'I' || option === 'J') {
         aiResponses.push('For at gøre turen endnu mere værd, så vil jeg gerne give dig en særlig gave. <br><br> 🌟 Rabatkode: SUNSETCHATBOT <br><br> Brug denne kode ved checkout og få 10% rabat på dit næste køb. Vi ønsker, at hver tur med os skal være ekstraordinær, og denne rabat er vores måde at sige tak for at vælge os.');
         aiResponses.push('Hvis du har lyst til at høre mere om Sunset og hvorfor vi er turen værd, så står jeg klar til at skrive mere med dig. Uanset, så må du have en rigtig dejlig dag.');
     }
