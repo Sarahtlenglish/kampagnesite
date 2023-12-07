@@ -189,13 +189,21 @@ h3 {
   font-family: Domine;
   width: 228px;
   height: 48px;
-  padding: 10px 20px;
+  padding: 0;
   border: none;
   margin: 3.115264797507788vh auto; /* Auto-margin for centering horizontally */
   border-radius: 5px;
   cursor: pointer;
-  display: block; /* Ensuring it's a block-level element */
+  display: flex; /* Ensuring it's a block-level element */
+  text-decoration: none;
+  justify-content: center;
 }
+
+a.button2 {
+  align-items: center;
+}
+
+
 
 .baggrund {
   position: absolute;
