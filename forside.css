@@ -231,23 +231,23 @@ a.button2 {
   }
 
 .navbar #button {
-  font-size: 19px;
-  width: 230px;
-  height: 51px;
-  margin-right: 15.628691983122362vw;
+  font-size: 14px;
+  width: 200px;
+  height: 4.7767393561786085vh;
+  margin-right: 17vw;
   
 }
 
 .navbar #button img {
-  max-width: 50px;
-  max-height: 50px;
-  margin-left: 7px; /* Øg dette tal for at rykke billedet yderligere til højre */
+  max-width: 40px;
+  max-height: 40px;
+  margin-left: 7px; /* Ã˜g dette tal for at rykke billedet yderligere til hÃ¸jre */
 }
 
 .navbar #logo {
   width: 81px;
   height: 81px;
-  margin-left: 320px;
+  margin-left: 17vw;
 }
 
 .navbar #title {
