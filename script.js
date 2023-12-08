@@ -4,7 +4,7 @@ const apiKey = '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'; // api nø
 
 let conversation = []; // Array til at gemme samtalen
 
-// Initialiser samtalen ved at vise assistentens introduktion med svarmuligheder
+// Starter samtalen ved at vise assistentens introduktion med svarmuligheder
 async function initializeChat() {
     // Send en systembesked for at starte samtalen uden brugerinput
     conversation.push({
@@ -84,7 +84,7 @@ async function sendMessage() {
             setTimeout(async () => {
                 const aiResponse = await callOpenAI();
 
-                // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
+                // Tilføj assistentens svar kun, hvis der er et gyldigt AI-svar
                 if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
                     conversation.push({
                         role: 'ai',
@@ -159,23 +159,13 @@ function getFollowUpOptions(option) {
                 <button onclick="selectOption('J')">Fortæl mig mere</button>
                 <button onclick="selectOption('K')">Ikke interesseret</button>
             `;
-            break;
-        case 'D':
-            followUpOptions = `
-               
-            `;
-            break;
-        // Tilføj yderligere cases efter behov
-        default:
-            // Returner en tom streng, når der ikke er definerede opfølgningsmuligheder
-            break;
     }
 
 
     return followUpOptions;
 }
 
-// Funktion til at håndtere følgesvarmuligheder baseret på brugerens valg
+// Funktion til at håndtere følgende svarmuligheder baseret på brugerens valg
 async function handleFollowUpOptions(option) {
     let aiResponses = [];
 
@@ -203,12 +193,6 @@ async function handleFollowUpOptions(option) {
             break;
         case 'M':
             aiResponses.push('Det er også helt i orden. Hvis du har lyst, kan du chatte videre med mig, og ellers må du have en dejlig dag!');
-            break;
-        // Tilføj yderligere cases efter behov
-        default:
-            aiResponses.push('Beklager, jeg forstår ikke valget.');
-            break;
-
     }
 
     if (option === 'F' || option === 'G' || option === 'H' || option === 'I' || option === 'J') {
@@ -299,7 +283,7 @@ async function callOpenAI() {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: 'gpt-4', // Erstat med den ønskede model
+                model: 'gpt-4',
                 messages: [{
                     role: 'system',
                     content: `
@@ -420,7 +404,7 @@ async function callOpenAI() {
         const data = await response.json();
         return data.choices[0].message.content.trim();
     } catch (error) {
-        console.error('Error calling OpenAI API:', error);
+        console.error('Kunne ikke kalde OpenAI API:', error);
         // Håndter fejlen her, f.eks. vis en fejlbesked til brugeren
     }
 
@@ -465,7 +449,7 @@ async function selectOption(option) {
                 content: followUpOptions
             });
         } else if (['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].includes(option)) {
-            // Håndter følgesvarmuligheder baseret på brugerens valg med forsinkelse
+            // Håndter efterfølgende svarmuligheder baseret på brugerens valg med forsinkelse
             const delay = option === 'G' || option === 'I' || option === 'K' ? 2000 : 1000; // Ændret forsinkelsen for 'G', 'I', 'K'
             await new Promise(resolve => setTimeout(resolve, delay));
             aiResponse = await handleFollowUpOptions(option);
@@ -505,7 +489,7 @@ async function selectOption(option) {
         // Vent i 1000 ms (1 sekund)
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // Tilføj assistentens svar kun, hvis der er en gyldig AI-respons
+        // Tilføj assistentens svar kun, hvis der er et gyldigt AI-svar
         if (aiResponse && typeof aiResponse === 'string' && aiResponse.trim() !== '') {
             conversation.push({
                 role: 'ai',
