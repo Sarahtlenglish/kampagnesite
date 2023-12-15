@@ -1,6 +1,6 @@
 const chatContainer = document.getElementById('chat-container');
 const userInput = document.getElementById('user-input');
-const apiKey = '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'; // api nøgle
+const apiKey = 'sk-eksempelpaaApiNoegle'; // api nøgle fjernet fra Git grundet sikkerhed
 
 let conversation = []; // Array til at gemme samtalen
 
